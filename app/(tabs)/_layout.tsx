@@ -4,11 +4,12 @@ import { Tabs } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Platform, View } from 'react-native';
-
+import * as NavigationBar from 'expo-navigation-bar';
 export default function TabLayout() {
+ Platform.OS === 'android' &&  NavigationBar.setVisibilityAsync('hidden');
   return (
     <>
-      <StatusBar style="auto"/>
+      <StatusBar style="light" />
       <Tabs
         screenOptions={{
           tabBarActiveTintColor: '#FF0000', // Màu đỏ khi tab được chọn
@@ -16,7 +17,7 @@ export default function TabLayout() {
           tabBarHideOnKeyboard: true,
           tabBarShowLabel: false,          
           tabBarStyle: {
-            height: Platform.OS === 'ios' ? 70 : 45,
+            height: Platform.OS === 'ios' ? 70 : 50 ,
             backgroundColor: '#000000',
             borderBlockColor: '#000000'
           },
