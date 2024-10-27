@@ -100,23 +100,35 @@ export default function BuyCoinModal({
                 <View className="flex flex-row gap-1 justify-center mt-3">
                   {demoCard.map((item, index) => (
                     <TouchableOpacity
-                      onPress={() => setSelectCard(selectCard === item ? null : item)}
+                      onPress={() =>
+                        setSelectCard(selectCard === item ? null : item)
+                      }
                       key={item.id}
-                      className={`${selectCard?.id === item.id && 'bg-[#CF3736]'} p-2 max-w-[104px] border-[1px] gap-2 flex flex-col items-center min-h-[130px] border-black rounded-md`}
+                      className={`${
+                        selectCard?.id === item.id && "bg-[#CF3736]"
+                      } p-2 max-w-[104px] border-[1px] gap-2 flex flex-col items-center min-h-[130px] border-black rounded-md`}
                     >
                       <Image source={item.image} />
                       <View>
                         <Text
                           numberOfLines={1}
                           ellipsizeMode="tail"
-                          className={`${selectCard?.id === item.id ? 'text-white' : 'text-[#CF3736]'} text-xs `}
+                          className={`${
+                            selectCard?.id === item.id
+                              ? "text-white"
+                              : "text-[#CF3736]"
+                          } text-xs `}
                         >
                           {item.title}
                         </Text>
                         <Text
                           numberOfLines={1}
                           ellipsizeMode="tail"
-                          className={`${selectCard?.id === item.id ? 'text-white' : 'text-[#CF3736]'} text-xs `}
+                          className={`${
+                            selectCard?.id === item.id
+                              ? "text-white"
+                              : "text-[#CF3736]"
+                          } text-xs `}
                         >
                           {item.number}
                         </Text>
@@ -146,7 +158,12 @@ export default function BuyCoinModal({
           </View>
         </View>
       </Modal>
-      <Pressable onPress={() => setModalVisible(true)}>{children}</Pressable>
+      <TouchableOpacity
+        onPress={() => setModalVisible(true)}
+        activeOpacity={0.6}
+      >
+        {children}
+      </TouchableOpacity>
     </>
   );
 }

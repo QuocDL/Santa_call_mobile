@@ -8,10 +8,10 @@ import { useFonts } from "expo-font";
 
 export default function TabBarMenu() {
   return (
-    <View className="flex gap-3 px-2">
+    <View className="flex gap-3.5 px-[4%]">
       <View className="flex flex-row justify-between items-center">
         <BuyCoinModal>
-          <View className="bg-[#CF3736] py-2 px-2 rounded-md  border-[1px] border-white">
+          <View className="bg-[#CF3736] py-1.5 px-2 rounded-md  border-[1px] border-white">
             <View className="flex flex-row items-center gap-2">
               <Text  className="text-white font-extrabold text-lg">10</Text>
               <Image source={images.coinImage} />
@@ -19,17 +19,17 @@ export default function TabBarMenu() {
             </View>
           </View>
         </BuyCoinModal>
-        <View className="p-1.5 bg-white rounded-full">
+        <View className="py-1.5 px-2 bg-white rounded-full">
           <NotificationIcon />
         </View>
       </View>
-      <View >
+      <View className="flex flex-row items-center justify-between bg-white py-2.5 rounded-3xl">
         <TextInput
-          className="bg-white relative pl-6 pr-16 py-4 rounded-3xl"
+          className="pl-6 h-full w-[80%] overflow-hidden"
           placeholder="Search..."
           placeholderTextColor="#777777"
         />
-        <TouchableOpacity className="absolute right-4 top-5 -translate-y-3">
+        <TouchableOpacity className="mr-4">
           <SearchIcon/>
         </TouchableOpacity>
       </View>

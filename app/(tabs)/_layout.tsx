@@ -1,6 +1,7 @@
 import HomeIcon from "@/assets/Icons/Home";
 import VideoIcon from "@/assets/Icons/Video";
 import ImageIcon from "@/assets/Icons/Images";
+import AccountIcon from "@/assets/Icons/Account";
 import SwapIcon from "@/assets/Icons/Swap";
 import { Tabs } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -31,6 +32,34 @@ export default function TabLayout() {
             tabBarIcon: ({ color }) => <HomeIcon color={color} />,
           }}
         />
+         <Tabs.Screen
+          name="(template-video)"
+          options={{
+            title: "image",
+            tabBarIcon: ({ color }) => <VideoIcon color={color} />,
+          }}
+        />
+        <Tabs.Screen
+          name="explore"
+          options={{
+            title: "Explore",
+            tabBarIcon: ({ color }) => (
+              <View
+                style={{
+                  position: "absolute",
+                  top: -30,
+                  backgroundColor: "#000000",
+                  padding: 5,
+                  borderRadius: 50,
+                  borderColor: "#FF0000",
+                  borderWidth: 4,
+                }}
+              >
+                <SwapIcon color={color} />
+              </View>
+            ),
+          }}
+        />
         <Tabs.Screen
           name="(template-image)"
           options={{
@@ -38,26 +67,15 @@ export default function TabLayout() {
             tabBarIcon: ({ color }) => <ImageIcon color={color} />,
           }}
         />
-        {/* <Tabs.Screen
-          name="explore"
+          <Tabs.Screen
+          name="test"
           options={{
-            title: 'Explore',
-            tabBarIcon: ({ color }) => (
-              <View style={{
-                position: 'absolute',
-                top: -30, 
-                backgroundColor: '#000000',
-                padding: 5,
-                borderRadius: 50,
-                borderColor: '#FF0000',
-                borderWidth: 4,
-              }}>
-                <SwapIcon color={color}/>
-              </View>
-            ),
+            title: "image",
+            tabBarIcon: ({ color }) => <AccountIcon color={color} />,
           }}
-        /> */}
+        />
       </Tabs>
+      
     </>
   );
 }
