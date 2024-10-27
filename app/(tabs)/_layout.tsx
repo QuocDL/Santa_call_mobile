@@ -1,39 +1,44 @@
-import HomeIcon from '@/assets/Icons/Home';
-import VideoIcon from '@/assets/Icons/Video';
-import SwapIcon from '@/assets/Icons/Swap';
-import { Tabs } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { Platform, View } from 'react-native';
+import HomeIcon from "@/assets/Icons/Home";
+import VideoIcon from "@/assets/Icons/Video";
+import ImageIcon from "@/assets/Icons/Images";
+import SwapIcon from "@/assets/Icons/Swap";
+import { Tabs } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { Platform, View } from "react-native";
 export default function TabLayout() {
   return (
     <>
       <StatusBar style="light" />
       <Tabs
         screenOptions={{
-          tabBarActiveTintColor: '#FF0000', // Màu đỏ khi tab được chọn
+          tabBarActiveTintColor: "#FF0000", // Màu đỏ khi tab được chọn
           headerShown: false,
-          tabBarInactiveTintColor: '#FFFFFF',
+          tabBarInactiveTintColor: "#FFFFFF",
           // tabBarHideOnKeyboard: true,
-          tabBarShowLabel: false,          
+          tabBarShowLabel: false,
           tabBarStyle: {
-            height: Platform.OS === 'ios' ? 70 : 50 ,
-            backgroundColor: '#000000',
-            borderBlockColor: '#000000'
+            height: Platform.OS === "ios" ? 70 : 50,
+            backgroundColor: "#000000",
+            borderBlockColor: "#000000",
           },
-          
         }}
-       
       >
         <Tabs.Screen
-          name="index"
+          name="(home)"
           options={{
-            title: 'Home',
+            title: "Home",
             tabBarIcon: ({ color }) => <HomeIcon color={color} />,
           }}
         />
-
         <Tabs.Screen
+          name="(template-image)"
+          options={{
+            title: "image",
+            tabBarIcon: ({ color }) => <ImageIcon color={color} />,
+          }}
+        />
+        {/* <Tabs.Screen
           name="explore"
           options={{
             title: 'Explore',
@@ -51,8 +56,7 @@ export default function TabLayout() {
               </View>
             ),
           }}
-        />
-
+        /> */}
       </Tabs>
     </>
   );

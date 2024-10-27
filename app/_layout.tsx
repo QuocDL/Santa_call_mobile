@@ -16,12 +16,16 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    PoppinsBold: require("../assets/fonts/Poppins-Medium.ttf"),
   });
 
   useEffect(() => {
-    Platform.OS === "android" &&
-      NavigationBar.setBackgroundColorAsync("#000000");
+   
+    const setBackgroundColor = async () => {
+      await  Platform.OS === "android" && NavigationBar.setVisibilityAsync('hidden');
+    };
+
+    setBackgroundColor();
 
     if (loaded) {
       SplashScreen.hideAsync();
@@ -35,6 +39,7 @@ export default function RootLayout() {
   return (
     <Stack>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="swap" options={{ headerShown: false }} />
       <Stack.Screen name="+not-found" />
     </Stack>
   );

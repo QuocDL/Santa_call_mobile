@@ -1,5 +1,6 @@
 import images from "@/assets/images";
-import { ImageBackground, Platform, Text, TextInput } from "react-native";
+import TabBarMenu from "@/components/TabBarMenu";
+import { ImageBackground, Platform, ScrollView, Text, TextInput } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 export default function HomeScreen() {
   return (
@@ -10,8 +11,10 @@ export default function HomeScreen() {
         source={images.bgImage}
       >
        
-          <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <TextInput placeholder="hehe" style={{ width: '80%', backgroundColor: 'white', padding: 10, borderRadius: 5 }} />
+          <SafeAreaView>
+            <ScrollView className="min-h-screen ">
+               <TabBarMenu/>
+            </ScrollView>
           </SafeAreaView>
       </ImageBackground>
     </SafeAreaProvider>
