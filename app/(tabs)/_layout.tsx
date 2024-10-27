@@ -1,37 +1,58 @@
+import HomeIcon from '@/assets/Icons/Home';
+import VideoIcon from '@/assets/Icons/Video';
 import { Tabs } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { Platform, View } from 'react-native';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
-          ),
+    <>
+      <StatusBar style="auto"/>
+      <Tabs
+        screenOptions={{
+          tabBarActiveTintColor: '#FF0000', // Màu đỏ khi tab được chọn
+          headerShown: false,
+          tabBarHideOnKeyboard: true,
+          tabBarShowLabel: false,          
+          tabBarStyle: {
+            height: Platform.OS === 'ios' ? 70 : 45,
+            backgroundColor: '#000000',
+            borderBlockColor: '#000000'
+          },
+          
         }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
-          ),
-        }}
-      />
-    </Tabs>
+       
+      >
+        <Tabs.Screen
+          name="index"
+          options={{
+            title: 'Home',
+            tabBarIcon: ({ color }) => <HomeIcon color={color} />,
+          }}
+        />
+
+        <Tabs.Screen
+          name="explore"
+          options={{
+            title: 'Explore',
+            tabBarIcon: ({ color }) => (
+              <View style={{
+                position: 'absolute',
+                top: -30, 
+                backgroundColor: '#000000',
+                padding: 5,
+                borderRadius: 50,
+                borderColor: '#FF0000',
+                borderWidth: 4,
+              }}>
+                <VideoIcon color={color}/>
+              </View>
+            ),
+          }}
+        />
+
+      </Tabs>
+    </>
   );
 }
