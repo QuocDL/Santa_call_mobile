@@ -1,9 +1,11 @@
+import { useEffect, useRef } from "react";
 import {
   ImageBackground,
   ImageSourcePropType,
   ScrollView,
   StyleProp,
   ViewStyle,
+  Animated,
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
@@ -32,7 +34,9 @@ export default function ProviderContent({
       >
         <SafeAreaView>
           {enableScroll ? (
-            <ScrollView style={styleScroll} className={classNameScroll}>{children}</ScrollView>
+            <ScrollView style={styleScroll} className={classNameScroll}>
+              {children}
+            </ScrollView>
           ) : (
             <>{children}</>
           )}
