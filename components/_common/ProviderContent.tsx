@@ -15,6 +15,8 @@ export default function ProviderContent({
   enableScroll,
   styleScroll,
   classNameScroll,
+  showScrollBarY= true,
+  showScrollBarX = true,
   styleImageBg,
 }: {
   children: React.ReactNode;
@@ -22,6 +24,8 @@ export default function ProviderContent({
   enableScroll: boolean;
   styleScroll?: StyleProp<ViewStyle>;
   classNameScroll?: string;
+  showScrollBarY?: boolean;
+  showScrollBarX?: boolean;
   styleImageBg?: StyleProp<ViewStyle>;
 }) {
   return (
@@ -34,7 +38,12 @@ export default function ProviderContent({
       >
         <SafeAreaView>
           {enableScroll ? (
-            <ScrollView style={styleScroll} className={classNameScroll}>
+            <ScrollView
+              showsHorizontalScrollIndicator={showScrollBarY}
+              showsVerticalScrollIndicator={showScrollBarX }
+              style={styleScroll}
+              className={classNameScroll}
+            >
               {children}
             </ScrollView>
           ) : (

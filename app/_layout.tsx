@@ -21,11 +21,11 @@ export default function RootLayout() {
 
   useEffect(() => {
    
-    const setBackgroundColor = async () => {
-      await  Platform.OS === "android" && NavigationBar.setVisibilityAsync('hidden');
-    };
+    // const setBackgroundColor = async () => {
+    //   await  Platform.OS === "android" && NavigationBar.setVisibilityAsync('hidden');
+    // };
 
-    setBackgroundColor();
+    // setBackgroundColor();
 
     if (loaded) {
       SplashScreen.hideAsync();

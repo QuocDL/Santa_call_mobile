@@ -13,7 +13,7 @@ import {
 } from "react-native";
 
 export default function StartPage() {
-  const firstTry = false;
+  const firstTry = true;
   const [pageIndex, setPageIndex] = useState(0);
   const opacity = useRef(new Animated.Value(1)).current;
   const router = useRouter();
@@ -35,7 +35,7 @@ export default function StartPage() {
     }
   };
 
-  return firstTry ? (
+  return firstTry  ? (
     <Redirect href={"/(tabs)"} />
   ) : (
     <ProviderContent backgroundImage={images.bgWelcome} enableScroll={false}>

@@ -5,14 +5,11 @@ import { Link } from "expo-router";
 import HomePage from "../(pages)/home/HomePage";
 export default function HomeScreen() {
   return (
-    <ProviderContent
-      backgroundImage={images.bgImage}
-      enableScroll={true}
-      classNameScroll="min-h-screen"
-    >
+    <ProviderContent backgroundImage={images.bgImage} enableScroll={true}>
       <TabBarMenu />
-      <HomePage/>
-      <Link href={'/swap/swap-image/2'}>Go</Link>
+      <HomePage />
+
+      <Link href={"/auth/login"}>Go</Link>
     </ProviderContent>
   );
 }
