@@ -5,8 +5,8 @@ import { Link } from "expo-router";
 import React from "react";
 import { ImageBackground, ScrollView, Text } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import VideoTemplate from "../(pages)/Template/VideoTemplate";
 import ProtectedProvider from "@/components/_common/ProtectedProvider";
+import VideoTemplate from "@/app/(pages)/Template/VideoTemplate";
 
 export default function TemplateVideoScreen() {
   return (
@@ -15,10 +15,8 @@ export default function TemplateVideoScreen() {
       enableScroll={true}
       classNameScroll="min-h-screen"
     >
-      <ProtectedProvider>
         <TabBarMenu />
         <VideoTemplate />
-      </ProtectedProvider>
     </ProviderContent>
   );
 }

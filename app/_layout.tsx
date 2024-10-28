@@ -40,7 +40,7 @@ export default function RootLayout() {
     <Stack>
       <Stack.Screen name="index" options={{ animation: 'fade',headerShown: false}}/>
       <Stack.Screen name="(tabs)" options={{ animation: 'fade', headerShown: false }} />
-      <Stack.Screen name="swap" options={{animation: 'fade', headerTransparent: true }} />
+      <Stack.Screen name="auth" options={{animation: 'fade', headerShown: false}} />
       <Stack.Screen name="+not-found" />
     </Stack>
   );
