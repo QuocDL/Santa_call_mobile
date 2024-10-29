@@ -1,6 +1,6 @@
 import images from "@/assets/images";
 import ProviderContent from "@/components/Provider/ProviderContent";
-import TabBarMenu from "@/components/TabBarMenu";
+import TabBarMenu from "@/components/_element/TabBarMenu";
 import { Link } from "expo-router";
 import React from "react";
 import { ImageBackground, ScrollView, Text } from "react-native";

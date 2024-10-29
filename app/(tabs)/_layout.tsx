@@ -90,6 +90,7 @@ export default function TabLayout() {
                 tabBarButton: () => null, 
               }}
             />
+         
           </Tabs>
         </ImageBackground>
       </ProtectedAuth>

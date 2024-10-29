@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
-import BuyCoinModal from "./_element/BuyCoinModal";
+import BuyCoinModal from "./BuyCoinModal";
 import NotificationIcon from "@/assets/Icons/Notification";
 import SearchIcon from "@/assets/Icons/Search";
 import images from "@/assets/images";

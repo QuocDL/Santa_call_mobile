@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, View } from "react-native";
 import {
   ImageBackground,
   ImageSourcePropType,
@@ -8,18 +8,27 @@ import {
   ViewStyle,
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+
 type ScrollType = "flatlist" | "scrollview" | "none";
+
 export default function ProviderContent({
   children,
   backgroundImage,
   viewScroll,
+  overflowBottom = {
+    enable: false,
+  },
   styleScroll,
   classNameScroll,
   showScrollBarY = true,
   showScrollBarX = true,
   styleImageBg,
 }: {
-  children: React.ReactNode; // Đảm bảo kiểu dữ liệu là ReactNode
+  children: React.ReactNode;
+  overflowBottom?: {
+    enable: boolean;
+    heigth?: number;
+  };
   backgroundImage: ImageSourcePropType;
   viewScroll: ScrollType;
   styleScroll?: StyleProp<ViewStyle>;
@@ -28,7 +37,7 @@ export default function ProviderContent({
   showScrollBarX?: boolean;
   styleImageBg?: StyleProp<ViewStyle>;
 }) {
-  const childArray = React.Children.toArray(children); 
+  const childArray = React.Children.toArray(children);
 
   return (
     <SafeAreaProvider>
@@ -39,9 +48,17 @@ export default function ProviderContent({
         source={backgroundImage}
       >
         <SafeAreaView>
-        {viewScroll === "flatlist" ? (
+          {viewScroll === "flatlist" ? (
             <FlatList
-              data={childArray}
+              data={[
+                ...childArray,
+                overflowBottom && overflowBottom.enable && (
+                  <View
+                    key={`spacer-${childArray.length}`}
+                    style={{ height: overflowBottom.heigth }}
+                  />
+                ),
+              ]}
               renderItem={({ item }) => <>{item}</>}
               keyExtractor={(item, index) => index.toString()}
               showsHorizontalScrollIndicator={showScrollBarX}
@@ -57,9 +74,17 @@ export default function ProviderContent({
               className={classNameScroll}
             >
               {children}
+              {overflowBottom && overflowBottom.enable && (
+                <View style={{ height: overflowBottom.heigth }} />
+              )}
             </ScrollView>
           ) : (
-            <>{children}</>
+            <>
+              {children}
+              {overflowBottom && overflowBottom.enable && (
+                <View style={{ height: overflowBottom.heigth }} />
+              )}
+            </>
           )}
         </SafeAreaView>
       </ImageBackground>

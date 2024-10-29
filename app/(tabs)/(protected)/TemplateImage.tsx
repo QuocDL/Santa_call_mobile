@@ -1,6 +1,6 @@
 import images from "@/assets/images";
 import ProviderContent from "@/components/Provider/ProviderContent";
-import TabBarMenu from "@/components/TabBarMenu";
+import TabBarMenu from "@/components/_element/TabBarMenu";
 import React from "react";
 
 export default function TemplateImageScreen() {
