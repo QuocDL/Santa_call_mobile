@@ -8,11 +8,11 @@ import { StatusBar } from "expo-status-bar";
 import React, { useEffect } from "react";
 import { ImageBackground, Platform, View } from "react-native";
 import images from "@/assets/images";
-import ProtectedProvider from "@/components/_common/ProtectedProvider";
+import ProtectedAuth from "@/components/_common/ProtectedAuth";
 export default function TabLayout() {
   return (
     <>
-      <ProtectedProvider>
+      <ProtectedAuth>
         <ImageBackground
           style={{ flex: 1 }}
           source={images.bgImage}
@@ -92,7 +92,7 @@ export default function TabLayout() {
             />
           </Tabs>
         </ImageBackground>
-      </ProtectedProvider>
+      </ProtectedAuth>
     </>
   );
 }

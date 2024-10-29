@@ -1,16 +1,11 @@
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { Platform } from "react-native";
 import "react-native-reanimated";
-import * as NavigationBar from 'expo-navigation-bar';
-
+import ProviderRedux from "@/components/Provider/ProviderRedux";
+import { ToastProvider } from "react-native-toast-notifications";
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
@@ -20,13 +15,10 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
-   
     // const setBackgroundColor = async () => {
     //   await  Platform.OS === "android" && NavigationBar.setVisibilityAsync('hidden');
     // };
-
     // setBackgroundColor();
-
     if (loaded) {
       SplashScreen.hideAsync();
     }
@@ -37,11 +29,20 @@ export default function RootLayout() {
   }
 
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ animation: 'fade',headerShown: false}}/>
-      <Stack.Screen name="(tabs)" options={{ animation: 'fade', headerShown: false }} />
-      <Stack.Screen name="auth" options={{animation: 'fade', headerShown: false}} />
-      <Stack.Screen name="+not-found" />
-    </Stack>
+    <ProviderRedux>
+      <ToastProvider swipeEnabled={true} textStyle={{fontSize: 16}} offsetBottom={120} offsetTop={120}>
+        <Stack
+          screenOptions={{
+            animation: Platform.OS === "android" ? "simple_push" : "fade",
+            animationDuration: Platform.OS === "android" ? 1200 : 300,
+          }}
+        >
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="auth" options={{ headerShown: false }} />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+      </ToastProvider>
+    </ProviderRedux>
   );
 }

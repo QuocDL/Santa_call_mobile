@@ -1,21 +1,21 @@
 import images from "@/assets/images";
+import { useTypedSelector } from "@/redux/store";
 import { Slot, useRouter, useSegments } from "expo-router";
 import React, { useEffect, useState } from "react"; // Import useState
 import { ActivityIndicator, Image, ImageBackground, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
-export default function ProtectedProvider({
+export default function ProtectedAuth({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const segment = useSegments() as string[];
-  const isAuth = false;
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-
+  const isAuth = useTypedSelector(state=> state.auth.authenticate)
   useEffect(() => {
-    const requiresAuth = ["(protected)", "swap"].some((s) => segment.includes(s));
+    const requiresAuth = segment.includes('(protected)')
     if (requiresAuth && !isAuth) {
       setLoading(true);
       setTimeout(() => {

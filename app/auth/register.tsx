@@ -7,6 +7,7 @@ import KeyboardDismissWrapper from "@/components/_common/KeyboarDimiss";
 import CheckBox from "@/components/_element/Checkbox";
 import ProviderContent from "@/components/Provider/ProviderContent";
 import { LoginSchema, LoginType } from "@/constants/validations/Auth";
+import { useToastController } from "@/hooks/useToastController";
 import { login } from "@/redux/slice/authSlice";
 import { useAppDispatch } from "@/redux/store";
 import { screenStyle } from "@/styles/ScreenWidth";
@@ -16,14 +17,14 @@ import { Link, useRouter } from "expo-router";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
-  Text,
-  TextInput,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  View,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    TouchableWithoutFeedback,
+    View
 } from "react-native";
 import { Shadow } from "react-native-shadow-2";
-export default function Login() {
+export default function register() {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
@@ -58,12 +59,7 @@ export default function Login() {
   };
   const onSubmit = (data: LoginType) => {
     console.log("Login data: ", data);
-    dispatch(
-      login({
-        name: "quoc",
-      })
-    );
-    router.navigate("/(tabs)");
+
   };
   return (
     <KeyboardDismissWrapper style={{ flex: 1 }}>
@@ -194,7 +190,7 @@ export default function Login() {
                 Don’t have an account?
               </Text>
               <Link
-                href={"/auth/register"}
+                href={"/(tabs)"}
                 className="text-lg font-medium text-white ml-2"
               >
                 Sign up

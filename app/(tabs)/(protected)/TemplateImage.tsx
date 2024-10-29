@@ -1,5 +1,5 @@
 import images from "@/assets/images";
-import ProviderContent from "@/components/_common/ProviderContent";
+import ProviderContent from "@/components/Provider/ProviderContent";
 import TabBarMenu from "@/components/TabBarMenu";
 import React from "react";
 

@@ -1,5 +1,5 @@
 import images from "@/assets/images";
-import ProviderContent from "@/components/_common/ProviderContent";
+import ProviderContent from "@/components/Provider/ProviderContent";
 import WelcomeContent from "@/components/_element/WelcomeContent";
 import { Redirect, useRouter } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";

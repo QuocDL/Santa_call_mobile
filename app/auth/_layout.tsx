@@ -31,6 +31,30 @@ export default () => {
           ),
         }}
       />
+      <Stack.Screen
+      name="register"
+      options={{
+        animation: "fade",
+        headerTransparent: true,
+        headerTitle: "Sign up",
+        headerTitleAlign: "center",
+        headerTitleStyle: {
+          fontSize: 20,
+          color: "white",
+          fontWeight: "bold",
+        },
+        headerLeft: () => (
+          <View>
+            <AntDesign
+              name="left"
+              size={24}
+              color="white"
+              onPress={() => router.back()}
+            />
+          </View>
+        ),
+      }}
+    />
     </Stack>
   );
 };
