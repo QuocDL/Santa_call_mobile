@@ -1,33 +1,35 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
+import { ScrollView } from "react-native";
 import {
   ImageBackground,
   ImageSourcePropType,
-  ScrollView,
+  FlatList,
   StyleProp,
   ViewStyle,
-  Animated,
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-
+type ScrollType = "flatlist" | "scrollview" | "none";
 export default function ProviderContent({
   children,
   backgroundImage,
-  enableScroll,
+  viewScroll,
   styleScroll,
   classNameScroll,
-  showScrollBarY= true,
+  showScrollBarY = true,
   showScrollBarX = true,
   styleImageBg,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode; // Đảm bảo kiểu dữ liệu là ReactNode
   backgroundImage: ImageSourcePropType;
-  enableScroll: boolean;
+  viewScroll: ScrollType;
   styleScroll?: StyleProp<ViewStyle>;
   classNameScroll?: string;
   showScrollBarY?: boolean;
   showScrollBarX?: boolean;
   styleImageBg?: StyleProp<ViewStyle>;
 }) {
+  const childArray = React.Children.toArray(children); 
+
   return (
     <SafeAreaProvider>
       <ImageBackground
@@ -37,10 +39,20 @@ export default function ProviderContent({
         source={backgroundImage}
       >
         <SafeAreaView>
-          {enableScroll ? (
+        {viewScroll === "flatlist" ? (
+            <FlatList
+              data={childArray}
+              renderItem={({ item }) => <>{item}</>}
+              keyExtractor={(item, index) => index.toString()}
+              showsHorizontalScrollIndicator={showScrollBarX}
+              showsVerticalScrollIndicator={showScrollBarY}
+              style={styleScroll}
+              className={classNameScroll}
+            />
+          ) : viewScroll === "scrollview" ? (
             <ScrollView
-              showsHorizontalScrollIndicator={showScrollBarY}
-              showsVerticalScrollIndicator={showScrollBarX }
+              showsHorizontalScrollIndicator={showScrollBarX}
+              showsVerticalScrollIndicator={showScrollBarY}
               style={styleScroll}
               className={classNameScroll}
             >

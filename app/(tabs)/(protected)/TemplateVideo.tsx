@@ -12,11 +12,11 @@ export default function TemplateVideoScreen() {
   return (
     <ProviderContent
       backgroundImage={images.bgImage}
-      enableScroll={true}
+      viewScroll="none"
       classNameScroll="min-h-screen"
     >
-        <TabBarMenu />
-        <VideoTemplate />
+      <TabBarMenu />
+      <VideoTemplate />
     </ProviderContent>
   );
 }

@@ -20,7 +20,7 @@ export default function StartPage() {
   const goToPageIndex = (index: number) => {
     Animated.timing(opacity, {
       toValue: 0,
-      duration: 300,
+      duration: 300, 
       useNativeDriver: true,
     }).start(() => {
       setPageIndex(index);
@@ -38,7 +38,7 @@ export default function StartPage() {
   return firstTry  ? (
     <Redirect href={"/(tabs)"} />
   ) : (
-    <ProviderContent backgroundImage={images.bgWelcome} enableScroll={false}>
+    <ProviderContent backgroundImage={images.bgWelcome} viewScroll={'none'}>
       <View className={`mt-6 relative min-h-screen`}>
         <Animated.View style={{ opacity }}>
           <WelcomeContent indexContent={pageIndex} />

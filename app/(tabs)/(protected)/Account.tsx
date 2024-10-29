@@ -7,7 +7,7 @@ export default function Account() {
   return (
     <ProviderContent
       backgroundImage={images.bgImage}
-      enableScroll={true}
+      viewScroll={'none'}
       classNameScroll="min-h-screen"
     >
         <TabBarMenu enableSearch={false}/>

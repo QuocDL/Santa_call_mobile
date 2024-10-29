@@ -7,7 +7,7 @@ export default function TemplateImageScreen() {
   return (
     <ProviderContent
       backgroundImage={images.bgImage}
-      enableScroll={true}
+      viewScroll={'none'}
       classNameScroll="min-h-screen"
     >
         <TabBarMenu />
