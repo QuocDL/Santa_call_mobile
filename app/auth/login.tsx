@@ -69,7 +69,7 @@ export default function Login() {
     <KeyboardDismissWrapper style={{ flex: 1 }}>
       <ProviderContent
         backgroundImage={images.bgImage}
-        classNameScroll="min-h-screen "
+        classNameScroll="h-screen"
         viewScroll={"none"}
       >
         <View>
@@ -135,7 +135,8 @@ export default function Login() {
                       ref={(ref) => (inputRefs.current.password = ref)} // Lưu ref
                       blurOnSubmit={false}
                     />
-                    <TouchableWithoutFeedback
+                    <TouchableOpacity
+                    activeOpacity={0.5}
                       onPress={() => setShowPassword(!showPassword)}
                     >
                       {showPassword ? (
@@ -143,7 +144,7 @@ export default function Login() {
                       ) : (
                         <FontAwesome name="eye" size={24} color="black" />
                       )}
-                    </TouchableWithoutFeedback>
+                    </TouchableOpacity>
                   </View>
                 )}
               />
@@ -216,7 +217,7 @@ export default function Login() {
               >
                 <FaceBookIcon />
                 <Text className="text-white font-medium text-base ml-3">
-                  Sign in with Google
+                  Sign in with Facebook
                 </Text>
               </TouchableOpacity>
             </View>

@@ -3,6 +3,7 @@ const images = {
   bgWelcome: require("./bgWelcome.png"),
   Santa: require("./santa.png"),
   SantaAvt: require('./santaAvt.png'),
+  featuredImage: require('./Featuredimage.png'),
   welcome: {
     firstImage: require("./image (2).png"),
     secondImage: require("./image (3).png"),

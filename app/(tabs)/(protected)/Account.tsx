@@ -5,7 +5,7 @@ import StatisticalBox from "@/app/(pages)/Account/StatisticalBox";
 import images from "@/assets/images";
 import ProviderContent from "@/components/Provider/ProviderContent";
 import KeyboardDismissWrapper from "@/components/_common/KeyboarDimiss";
-import TabBarMenu from "@/components/_element/TabBarMenu";
+import TabBarMenu from "@/components/_common/TabBarMenu";
 import { useMediaPhone } from "@/hooks/useMediaPhone";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Foundation from "@expo/vector-icons/Foundation";

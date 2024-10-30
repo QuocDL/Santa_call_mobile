@@ -25,7 +25,7 @@ export default () => {
                 name="left"
                 size={24}
                 color="white"
-                onPress={() => router.replace('/(tabs)')}
+                onPress={() => router.back()}
               />
             </View>
           ),

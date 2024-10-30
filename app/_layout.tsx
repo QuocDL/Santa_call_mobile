@@ -33,8 +33,8 @@ export default function RootLayout() {
       <ToastProvider swipeEnabled={true} textStyle={{fontSize: 16}} offsetBottom={120} offsetTop={50}>
         <Stack
           screenOptions={{
-            animation: Platform.OS === "android" ? "simple_push" : "fade",
-            animationDuration: Platform.OS === "android" ? 1200 : 300,
+            animation: Platform.OS === "android" ? "ios" : "fade",
+            animationDuration: Platform.OS === "android" ? 600 : 400,
           }}
         >
           <Stack.Screen name="index" options={{ headerShown: false }} />
