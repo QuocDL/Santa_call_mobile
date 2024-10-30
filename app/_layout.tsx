@@ -30,7 +30,7 @@ export default function RootLayout() {
 
   return (
     <ProviderRedux>
-      <ToastProvider swipeEnabled={true} textStyle={{fontSize: 16}} offsetBottom={120} offsetTop={120}>
+      <ToastProvider swipeEnabled={true} textStyle={{fontSize: 16}} offsetBottom={120} offsetTop={50}>
         <Stack
           screenOptions={{
             animation: Platform.OS === "android" ? "simple_push" : "fade",

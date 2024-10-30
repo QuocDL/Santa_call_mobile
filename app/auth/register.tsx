@@ -7,8 +7,6 @@ import KeyboardDismissWrapper from "@/components/_common/KeyboarDimiss";
 import CheckBox from "@/components/_element/Checkbox";
 import ProviderContent from "@/components/Provider/ProviderContent";
 import { LoginSchema, LoginType } from "@/constants/validations/Auth";
-import { useToastController } from "@/hooks/useToastController";
-import { login } from "@/redux/slice/authSlice";
 import { useAppDispatch } from "@/redux/store";
 import { screenStyle } from "@/styles/ScreenWidth";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -17,11 +15,11 @@ import { Link, useRouter } from "expo-router";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
-    Text,
-    TextInput,
-    TouchableOpacity,
-    TouchableWithoutFeedback,
-    View
+  Text,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View
 } from "react-native";
 import { Shadow } from "react-native-shadow-2";
 export default function register() {
@@ -190,7 +188,7 @@ export default function register() {
                 Don’t have an account?
               </Text>
               <Link
-                href={"/(tabs)"}
+                href={"/auth/login"}
                 className="text-lg font-medium text-white ml-2"
               >
                 Sign up
