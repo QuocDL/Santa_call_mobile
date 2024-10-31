@@ -1,5 +1,11 @@
-import React, { useEffect, useRef } from "react";
-import { ScrollView, View } from "react-native";
+import React, { useRef, useState } from "react";
+import {
+  ScrollView,
+  View,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
+  ActivityIndicator,
+} from "react-native";
 import {
   ImageBackground,
   ImageSourcePropType,
@@ -15,20 +21,16 @@ export default function ProviderContent({
   children,
   backgroundImage,
   viewScroll,
-  overflowBottom = {
-    enable: false,
-  },
+  overflowBottom = { enable: false },
   styleScroll,
   classNameScroll,
   showScrollBarY = true,
   showScrollBarX = true,
   styleImageBg,
+  enablePullToRefresh = false,
 }: {
   children: React.ReactNode;
-  overflowBottom?: {
-    enable: boolean;
-    heigth?: number;
-  };
+  overflowBottom?: { enable: boolean; heigth?: number };
   backgroundImage: ImageSourcePropType;
   viewScroll: ScrollType;
   styleScroll?: StyleProp<ViewStyle>;
@@ -36,8 +38,28 @@ export default function ProviderContent({
   showScrollBarY?: boolean;
   showScrollBarX?: boolean;
   styleImageBg?: StyleProp<ViewStyle>;
+  enablePullToRefresh?: boolean;
 }) {
   const childArray = React.Children.toArray(children);
+  const [refreshing, setRefreshing] = useState(false);
+  const [reloadKey, setReloadKey] = useState(0);
+  const scrollY = useRef(0);
+
+  const handleRefresh = () => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+      setReloadKey((prevKey) => prevKey + 1);
+    }, 1500);
+  };
+
+  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const { contentOffset } = event.nativeEvent;
+    scrollY.current = contentOffset.y;
+    if (enablePullToRefresh && scrollY.current < -100 && !refreshing) {
+      handleRefresh();
+    }
+  };
 
   return (
     <SafeAreaProvider>
@@ -47,10 +69,13 @@ export default function ProviderContent({
         resizeMode="stretch"
         source={backgroundImage}
       >
-        <SafeAreaView>
+        <SafeAreaView key={reloadKey}>
           {viewScroll === "flatlist" ? (
             <FlatList
               data={[
+                refreshing && (
+                  <ActivityIndicator key="loading" size="large" color="white" />
+                ),
                 ...childArray,
                 overflowBottom && overflowBottom.enable && (
                   <View
@@ -65,6 +90,8 @@ export default function ProviderContent({
               showsVerticalScrollIndicator={showScrollBarY}
               style={styleScroll}
               className={classNameScroll}
+              onScroll={handleScroll}
+              onScrollEndDrag={handleScroll}
             />
           ) : viewScroll === "scrollview" ? (
             <ScrollView
@@ -72,7 +99,16 @@ export default function ProviderContent({
               showsVerticalScrollIndicator={showScrollBarY}
               style={styleScroll}
               className={classNameScroll}
+              onScroll={handleScroll}
+              onScrollEndDrag={handleScroll}
             >
+              {refreshing && (
+                <ActivityIndicator
+                  size="large"
+                  color="white"
+                  style={{ marginVertical: 10 }}
+                />
+              )}
               {children}
               {overflowBottom && overflowBottom.enable && (
                 <View style={{ height: overflowBottom.heigth }} />
