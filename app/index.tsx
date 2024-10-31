@@ -13,7 +13,7 @@ import {
 } from "react-native";
 
 export default function StartPage() {
-  const firstTry = true;
+  const firstTry = false;
   const [pageIndex, setPageIndex] = useState(0);
   const opacity = useRef(new Animated.Value(1)).current;
   const router = useRouter();
