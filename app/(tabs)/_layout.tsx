@@ -43,7 +43,7 @@ export default function TabLayout() {
               }}
             />
             <Tabs.Screen
-              name="(protected)/TemplateVideo"
+              name="TemplateVideo"
               options={{
                 title: "TemplateVideo",
                 tabBarIcon: ({ color }) => <VideoIcon color={color} />,
@@ -71,7 +71,7 @@ export default function TabLayout() {
               }}
             />
             <Tabs.Screen
-              name="(protected)/TemplateImage"
+              name="TemplateImage"
               options={{
                 title: "TemplateImage",
                 tabBarIcon: ({ color }) => <ImageIcon color={color} />,
