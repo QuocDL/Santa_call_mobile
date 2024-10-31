@@ -20,7 +20,6 @@ export default function TabLayout() {
           resizeMode="cover"
         >
           <StatusBar style="light" />
-          {/* Showing tab */}
           <Tabs
             screenOptions={{
               tabBarActiveTintColor: "#FF0000", 
@@ -91,7 +90,6 @@ export default function TabLayout() {
                 tabBarButton: () => null, 
               }}
             />
-         
           </Tabs>
         </ImageBackground>
         <AuthProtectedModal/>

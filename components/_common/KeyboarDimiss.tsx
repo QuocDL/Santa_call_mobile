@@ -1,5 +1,6 @@
 import React from 'react';
-import { Keyboard, TouchableWithoutFeedback, View, ViewProps } from 'react-native';
+import { Platform } from 'react-native';
+import { Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, View, ViewProps } from 'react-native';
 
 interface KeyboardDismissWrapperProps extends ViewProps {
   children: React.ReactNode;
@@ -7,11 +8,12 @@ interface KeyboardDismissWrapperProps extends ViewProps {
 
 export default function KeyboardDismissWrapper({
   children,
-  ...props
 }: KeyboardDismissWrapperProps) {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View {...props}>{children}</View>
+      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+        {children}
+      </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
 }

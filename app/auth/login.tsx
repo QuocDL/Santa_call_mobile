@@ -158,10 +158,10 @@ export default function Login() {
             </View>
 
             <View className="options_sign_in flex flex-row justify-between w-full my-2 px-1">
-              <View className="flex flex-row items-end">
+              <TouchableOpacity onPress={onChangeRemember} activeOpacity={0.9} className="flex flex-row items-end">
                 <CheckBox onChange={onChangeRemember} checked={remember} />
                 <Text className="text-white ml-2">Remember Me</Text>
-              </View>
+              </TouchableOpacity>
               <Link href={"/(tabs)"} className="text-[#00B746] text-sm">
                 Forgot your password?
               </Link>
