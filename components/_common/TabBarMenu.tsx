@@ -1,16 +1,15 @@
-import React, { useEffect } from "react";
-import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
-import BuyCoinModal from "./BuyCoinModal";
 import NotificationIcon from "@/assets/Icons/Notification";
 import SearchIcon from "@/assets/Icons/Search";
 import images from "@/assets/images";
-import { useFonts } from "expo-font";
+import React, { memo } from "react";
+import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
+import BuyCoinModal from "./BuyCoinModal";
 
-export default function TabBarMenu({
+export  const TabBarMenu = memo(({
   enableSearch = true,
 }: {
   enableSearch?: boolean;
-}) {
+}) =>{
   return (
     <View className="flex gap-3.5 px-[4%]">
       <View className="flex flex-row justify-between items-center">
@@ -43,4 +42,4 @@ export default function TabBarMenu({
       )}
     </View>
   );
-}
+})

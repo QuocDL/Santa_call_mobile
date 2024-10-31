@@ -5,7 +5,7 @@ import StatisticalBox from "@/app/(pages)/Account/StatisticalBox";
 import images from "@/assets/images";
 import ProviderContent from "@/components/Provider/ProviderContent";
 import KeyboardDismissWrapper from "@/components/_common/KeyboarDimiss";
-import TabBarMenu from "@/components/_common/TabBarMenu";
+import { TabBarMenu } from "@/components/_common/TabBarMenu";
 import { useMediaPhone } from "@/hooks/useMediaPhone";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Foundation from "@expo/vector-icons/Foundation";
@@ -19,7 +19,7 @@ export default function Account() {
     <ProviderContent
       backgroundImage={images.bgImage}
       viewScroll={"flatlist"}
-      overflowBottom={{ enable: true, heigth: 30 }}
+      overflowBottom={{ enable: true, height: 30 }}
       showScrollBarY={false}
     >
       <KeyboardDismissWrapper style={{ flex: 1 }}>

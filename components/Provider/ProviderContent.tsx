@@ -1,10 +1,12 @@
-import React, { useRef, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import React, { useCallback, useRef, useState, useMemo } from "react";
 import {
   ScrollView,
   View,
   NativeSyntheticEvent,
   NativeScrollEvent,
   ActivityIndicator,
+  RefreshControl, // Thêm import RefreshControl
 } from "react-native";
 import {
   ImageBackground,
@@ -27,12 +29,14 @@ export default function ProviderContent({
   showScrollBarY = true,
   showScrollBarX = true,
   styleImageBg,
+  queryKey,
   enablePullToRefresh = false,
 }: {
   children: React.ReactNode;
-  overflowBottom?: { enable: boolean; heigth?: number };
+  overflowBottom?: { enable: boolean; height?: number };
   backgroundImage: ImageSourcePropType;
   viewScroll: ScrollType;
+  queryKey?: string[];
   styleScroll?: StyleProp<ViewStyle>;
   classNameScroll?: string;
   showScrollBarY?: boolean;
@@ -40,26 +44,35 @@ export default function ProviderContent({
   styleImageBg?: StyleProp<ViewStyle>;
   enablePullToRefresh?: boolean;
 }) {
-  const childArray = React.Children.toArray(children);
+  const childArray = React.Children.toArray(children).filter(Boolean);
   const [refreshing, setRefreshing] = useState(false);
-  const [reloadKey, setReloadKey] = useState(0);
-  const scrollY = useRef(0);
-
-  const handleRefresh = () => {
-    setRefreshing(true);
-    setTimeout(() => {
-      setRefreshing(false);
-      setReloadKey((prevKey) => prevKey + 1);
-    }, 1500);
-  };
-
-  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const { contentOffset } = event.nativeEvent;
-    scrollY.current = contentOffset.y;
-    if (enablePullToRefresh && scrollY.current < -100 && !refreshing) {
-      handleRefresh();
+  const queryClient = useQueryClient();
+  const handleRefresh = useCallback(async () => {
+    if (refreshing) return; 
+    setRefreshing(true); 
+    try {
+      if (queryKey && Array.isArray(queryKey)) {
+        queryClient.invalidateQueries({ queryKey });
+      }
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+    } finally {
+      setRefreshing(false); 
     }
-  };
+  }, [refreshing, queryClient, queryKey]);
+  
+
+  const renderedChildren = useMemo(() => {
+    const childrenArray = [
+      ...childArray,
+      overflowBottom.enable && (
+        <View
+          key={`spacer-${childArray.length}`}
+          style={{ height: overflowBottom.height }}
+        />
+      ),
+    ].filter(Boolean);
+    return childrenArray;
+  }, [overflowBottom, childArray]);
 
   return (
     <SafeAreaProvider>
@@ -69,29 +82,22 @@ export default function ProviderContent({
         resizeMode="stretch"
         source={backgroundImage}
       >
-        <SafeAreaView key={reloadKey}>
+        <SafeAreaView>
           {viewScroll === "flatlist" ? (
             <FlatList
-              data={[
-                refreshing && (
-                  <ActivityIndicator key="loading" size="large" color="white" />
-                ),
-                ...childArray,
-                overflowBottom && overflowBottom.enable && (
-                  <View
-                    key={`spacer-${childArray.length}`}
-                    style={{ height: overflowBottom.heigth }}
-                  />
-                ),
-              ]}
+              data={renderedChildren}
               renderItem={({ item }) => <>{item}</>}
               keyExtractor={(item, index) => index.toString()}
               showsHorizontalScrollIndicator={showScrollBarX}
               showsVerticalScrollIndicator={showScrollBarY}
               style={styleScroll}
               className={classNameScroll}
-              onScroll={handleScroll}
-              onScrollEndDrag={handleScroll}
+              refreshControl={
+                <RefreshControl
+                  refreshing={refreshing}
+                  onRefresh={handleRefresh}
+                />
+              }
             />
           ) : viewScroll === "scrollview" ? (
             <ScrollView
@@ -99,28 +105,17 @@ export default function ProviderContent({
               showsVerticalScrollIndicator={showScrollBarY}
               style={styleScroll}
               className={classNameScroll}
-              onScroll={handleScroll}
-              onScrollEndDrag={handleScroll}
-            >
-              {refreshing && (
-                <ActivityIndicator
-                  size="large"
-                  color="white"
-                  style={{ marginVertical: 10 }}
+              refreshControl={
+                <RefreshControl
+                  refreshing={refreshing}
+                  onRefresh={handleRefresh}
                 />
-              )}
-              {children}
-              {overflowBottom && overflowBottom.enable && (
-                <View style={{ height: overflowBottom.heigth }} />
-              )}
+              }
+            >
+              {renderedChildren}
             </ScrollView>
           ) : (
-            <>
-              {children}
-              {overflowBottom && overflowBottom.enable && (
-                <View style={{ height: overflowBottom.heigth }} />
-              )}
-            </>
+            renderedChildren
           )}
         </SafeAreaView>
       </ImageBackground>

@@ -22,9 +22,7 @@ export default function AuthProtectedModal() {
             animationType="fade"
             transparent={true}
             visible={modal}
-         // onRequestClose={() => {
-         //    setModalVisible(!modalVisible);
-         // }}
+ 
          >
             <View style={styles.overlay} pointerEvents="box-none">
                <TouchableOpacity
