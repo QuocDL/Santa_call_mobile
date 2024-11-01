@@ -15,6 +15,9 @@ import {
 export default function StartPage() {
   const firstTry = false;
   const [pageIndex, setPageIndex] = useState(0);
+  useEffect(()=>{
+    setPageIndex(0)
+  },[firstTry])
   const opacity = useRef(new Animated.Value(1)).current;
   const router = useRouter();
   const goToPageIndex = (index: number) => {
@@ -35,7 +38,7 @@ export default function StartPage() {
     }
   };
 
-  return firstTry  ? (
+  return !firstTry  ? (
     <Redirect href={"/(tabs)"} />
   ) : (
     <ProviderContent backgroundImage={images.bgWelcome} viewScroll={'none'}>

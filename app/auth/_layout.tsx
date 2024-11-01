@@ -49,7 +49,31 @@ export default () => {
               name="left"
               size={24}
               color="white"
-              onPress={() => router.back()}
+              onPress={() => router.replace('/auth/login')}
+            />
+          </View>
+        ),
+      }}
+    />
+     <Stack.Screen
+      name="forgotPassword"
+      options={{
+        animation: "fade",
+        headerTransparent: true,
+        headerTitle: "Forgot Password",
+        headerTitleAlign: "center",
+        headerTitleStyle: {
+          fontSize: 20,
+          color: "white",
+          fontWeight: "bold",
+        },
+        headerLeft: () => (
+          <View>
+            <AntDesign
+              name="left"
+              size={24}
+              color="white"
+              onPress={() => router.replace('/auth/login')}
             />
           </View>
         ),

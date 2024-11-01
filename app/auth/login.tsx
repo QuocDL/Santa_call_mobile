@@ -16,10 +16,10 @@ import { Link, useRouter } from "expo-router";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
+  Keyboard,
   Text,
   TextInput,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   View,
 } from "react-native";
 import { Shadow } from "react-native-shadow-2";
@@ -57,6 +57,7 @@ export default function Login() {
     }
   };
   const onSubmit = (data: LoginType) => {
+    Keyboard.dismiss()
     console.log("Login data: ", data);
     dispatch(
       login({
@@ -66,12 +67,12 @@ export default function Login() {
     router.navigate("/(tabs)");
   };
   return (
-    <KeyboardDismissWrapper style={{ flex: 1 }}>
-      <ProviderContent
-        backgroundImage={images.bgImage}
-        classNameScroll="h-screen"
-        viewScroll={"none"}
-      >
+    <ProviderContent
+      backgroundImage={images.bgImage}
+      viewScroll={"none"}
+      classNameScroll="h-screen"
+    >
+      <KeyboardDismissWrapper style={{ flex: 1 }}>
         <View>
           <View className={`mt-24 px-[4%] h-screen`}>
             <View className="form_data">
@@ -98,7 +99,7 @@ export default function Login() {
                         }
                         ref={(ref) => (inputRefs.current.emailOrUsername = ref)}
                         blurOnSubmit={false}
-                        keyboardType="default"
+                        keyboardType="email-address"
                         autoCapitalize="none"
                       />
                     </View>
@@ -131,12 +132,12 @@ export default function Login() {
                       onChangeText={onChange}
                       value={value}
                       returnKeyType="done"
-                      onSubmitEditing={() => focusNextField("password")} // Chuyển focus
-                      ref={(ref) => (inputRefs.current.password = ref)} // Lưu ref
+                      onSubmitEditing={() => focusNextField("password")}
+                      ref={(ref) => (inputRefs.current.password = ref)}
                       blurOnSubmit={false}
                     />
                     <TouchableOpacity
-                    activeOpacity={0.5}
+                      activeOpacity={0.5}
                       onPress={() => setShowPassword(!showPassword)}
                     >
                       {showPassword ? (
@@ -162,9 +163,11 @@ export default function Login() {
                 <CheckBox onChange={onChangeRemember} checked={remember} />
                 <Text className="text-white ml-2">Remember Me</Text>
               </TouchableOpacity>
-              <Link href={"/(tabs)"} className="text-[#00B746] text-sm">
-                Forgot your password?
-              </Link>
+              <TouchableOpacity onPress={() => router.navigate('/auth/forgotPassword')} >
+                <Text className="text-[#00B746] text-sm">
+                  Forgot your password?
+                </Text>
+              </TouchableOpacity>
             </View>
             <View className="sign_in_btn">
               <Shadow
@@ -179,11 +182,12 @@ export default function Login() {
               >
                 <TouchableOpacity
                   activeOpacity={0.6}
-                  className="bg-[#FF0200] h-[40px] w-full flex flex-row items-center justify-center rounded-md "
+                  className={`h-[40px] w-full flex flex-row items-center justify-center rounded-md bg-[#FF0200]`}
                   onPress={handleSubmit(onSubmit)}
+
                 >
                   <Text
-                    style={{ color: "white", fontSize: 18, fontWeight: "bold" }}
+                    className={`font-bold text-white text-lg`}
                   >
                     Sign in
                   </Text>
@@ -194,12 +198,14 @@ export default function Login() {
               <Text className=" text-lg text-center">
                 Don’t have an account?
               </Text>
-              <Link
-                href={"/auth/register"}
-                className="text-lg font-medium text-white ml-2"
+              <TouchableOpacity
+                onPress={() => router.replace('/auth/register')}
               >
-                Sign up
-              </Link>
+
+                <Text className="text-lg font-medium text-white ml-2">
+                  Sign up
+                </Text>
+              </TouchableOpacity>
             </View>
             <View className="social_media">
               <TouchableOpacity
@@ -223,7 +229,7 @@ export default function Login() {
             </View>
           </View>
         </View>
-      </ProviderContent>
-    </KeyboardDismissWrapper>
+      </KeyboardDismissWrapper>
+    </ProviderContent>
   );
 }

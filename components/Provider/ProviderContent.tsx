@@ -44,6 +44,7 @@ export default function ProviderContent({
   styleImageBg?: StyleProp<ViewStyle>;
   enablePullToRefresh?: boolean;
 }) {
+  console.log(backgroundImage)
   const childArray = React.Children.toArray(children).filter(Boolean);
   const [refreshing, setRefreshing] = useState(false);
   const queryClient = useQueryClient();

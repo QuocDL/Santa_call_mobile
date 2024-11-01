@@ -6,7 +6,7 @@ import images from "@/assets/images";
 import KeyboardDismissWrapper from "@/components/_common/KeyboarDimiss";
 import CheckBox from "@/components/_element/Checkbox";
 import ProviderContent from "@/components/Provider/ProviderContent";
-import { LoginSchema, LoginType } from "@/constants/validations/Auth";
+import { RegisterSchema, RegisterType } from "@/constants/validations/Auth";
 import { useAppDispatch } from "@/redux/store";
 import { screenStyle } from "@/styles/ScreenWidth";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -22,56 +22,105 @@ import {
   View
 } from "react-native";
 import { Shadow } from "react-native-shadow-2";
-export default function register() {
+export default function Register() {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
-  const [remember, setRemember] = useState(false);
-  const onChangeRemember = () => {
-    setRemember(!remember);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [acpTerm, setAcpTerm] = useState(false);
+  const onchangeTermService = () => {
+    setAcpTerm(!acpTerm);
   };
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginType>({
-    resolver: zodResolver(LoginSchema),
+  } = useForm<RegisterType>({
+    resolver: zodResolver(RegisterSchema),
     defaultValues: {
-      email_or_username: "",
+      userName: "",
+      email: "",
       password: "",
+      confirmPassword: ""
     },
   });
   const inputRefs = React.useRef<{
-    emailOrUsername: TextInput | null;
+    userName: TextInput | null;
+    email: TextInput | null;
     password: TextInput | null;
+    confirmPassword: TextInput | null
   }>({
-    emailOrUsername: null,
+    userName: null,
+    email: null,
     password: null,
+    confirmPassword: null
   });
-  const focusNextField = (fieldName: keyof typeof inputRefs.current) => {
-    if (fieldName === "emailOrUsername" && inputRefs.current.password) {
-      inputRefs.current.password.focus();
-    } else {
-      handleSubmit(onSubmit)();
+  const focusNextField = (forcus: keyof typeof inputRefs.current) => {
+    const nextField = inputRefs.current[forcus];
+    const fields = Object.keys(inputRefs.current);
+    const currentIndex = fields.indexOf(forcus);
+    const isLastField = currentIndex === fields.length - 1;
+
+    if (nextField) {
+      nextField.focus();
+    } else if (isLastField) {
+      handleSubmit(onSubmit);
     }
   };
-  const onSubmit = (data: LoginType) => {
-    console.log("Login data: ", data);
-
+  const onSubmit = (data: RegisterType) => {
+    console.log("Register data: ", data);
+    router.replace('/auth/login')
   };
   return (
-    <KeyboardDismissWrapper style={{ flex: 1 }}>
-      <ProviderContent
-        backgroundImage={images.bgImage}
-        classNameScroll="min-h-screen "
-        viewScroll={"none"}
-      >
+    <ProviderContent
+      backgroundImage={images.bgImage}
+      classNameScroll="min-h-screen "
+      viewScroll={"none"}
+    >
+      <KeyboardDismissWrapper style={{ flex: 1 }}>
         <View>
           <View className={`mt-24 px-[4%] h-screen`}>
             <View className="form_data">
               <Controller
                 control={control}
-                name="email_or_username"
+                name="userName"
+                rules={{ required: true }}
+                render={({ field: { onChange, onBlur, value } }) => {
+                  return (
+                    <View className="flex flex-row items-center rounded-md overflow-hidden bg-white h-[50px]">
+                      <View className="bg-black h-full w-14 flex flex-row justify-center items-center">
+                        <FontAwesome name="user" size={24} color="white" />
+                      </View>
+                      <TextInput
+                        placeholder="Username"
+                        className="px-4 h-full w-[80%]"
+                        placeholderTextColor="#777777"
+                        onBlur={onBlur}
+                        onChangeText={onChange}
+                        value={value}
+                        returnKeyType="next"
+                        onSubmitEditing={() =>
+                          focusNextField("email")
+                        }
+                        ref={(ref) => (inputRefs.current.userName = ref)}
+                        blurOnSubmit={false}
+                        keyboardType="default"
+                        autoCapitalize="none"
+                      />
+                    </View>
+                  );
+                }}
+              />
+              <View className="h-6">
+                {errors.userName && (
+                  <Text className="text-yellow-300" numberOfLines={2}>
+                    {errors.userName.message as string}
+                  </Text>
+                )}
+              </View>
+              <Controller
+                control={control}
+                name="email"
                 rules={{ required: true }}
                 render={({ field: { onChange, onBlur, value } }) => {
                   return (
@@ -88,11 +137,11 @@ export default function register() {
                         value={value}
                         returnKeyType="next"
                         onSubmitEditing={() =>
-                          focusNextField("emailOrUsername")
+                          focusNextField("password")
                         }
-                        ref={(ref) => (inputRefs.current.emailOrUsername = ref)}
+                        ref={(ref) => (inputRefs.current.email = ref)}
                         blurOnSubmit={false}
-                        keyboardType="default"
+                        keyboardType="email-address"
                         autoCapitalize="none"
                       />
                     </View>
@@ -100,9 +149,9 @@ export default function register() {
                 }}
               />
               <View className="h-6">
-                {errors.email_or_username && (
+                {errors.email && (
                   <Text className="text-yellow-300" numberOfLines={2}>
-                    {errors.email_or_username.message as string}
+                    {errors.email.message as string}
                   </Text>
                 )}
               </View>
@@ -124,9 +173,9 @@ export default function register() {
                       onBlur={onBlur}
                       onChangeText={onChange}
                       value={value}
-                      returnKeyType="done"
-                      onSubmitEditing={() => focusNextField("password")} // Chuyển focus
-                      ref={(ref) => (inputRefs.current.password = ref)} // Lưu ref
+                      returnKeyType="next"
+                      onSubmitEditing={() => focusNextField("confirmPassword")}
+                      ref={(ref) => (inputRefs.current.password = ref)}
                       blurOnSubmit={false}
                     />
                     <TouchableWithoutFeedback
@@ -141,10 +190,51 @@ export default function register() {
                   </View>
                 )}
               />
-              <View className=" h-4">
+              <View className=" h-6">
                 {errors.password && (
                   <Text className="text-yellow-300" numberOfLines={2}>
                     {errors.password.message as string}
+                  </Text>
+                )}
+              </View>
+              <Controller
+                control={control}
+                name="confirmPassword"
+                rules={{ required: true }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <View className="flex  flex-row items-center rounded-md overflow-hidden bg-white h-[50px]">
+                    <View className="bg-black h-full w-14 flex flex-row justify-center items-center">
+                      <LockIcon />
+                    </View>
+                    <TextInput
+                      className="px-4 h-full w-[70%]"
+                      keyboardType="default"
+                      placeholder="Confirm your password"
+                      placeholderTextColor="#777777"
+                      secureTextEntry={!showConfirmPassword}
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      returnKeyType="done"
+                      onSubmitEditing={() => focusNextField("confirmPassword")}
+                      ref={(ref) => (inputRefs.current.confirmPassword = ref)} // Lưu ref
+                    />
+                    <TouchableWithoutFeedback
+                      onPress={() => setShowConfirmPassword(!showConfirmPassword)}
+                    >
+                      {showConfirmPassword ? (
+                        <FontAwesome name="eye-slash" size={24} color="black" />
+                      ) : (
+                        <FontAwesome name="eye" size={24} color="black" />
+                      )}
+                    </TouchableWithoutFeedback>
+                  </View>
+                )}
+              />
+              <View className=" h-4">
+                {errors.confirmPassword && (
+                  <Text className="text-yellow-300" numberOfLines={2}>
+                    {errors.confirmPassword.message as string}
                   </Text>
                 )}
               </View>
@@ -152,12 +242,10 @@ export default function register() {
 
             <View className="options_sign_in flex flex-row justify-between w-full my-2 px-1">
               <View className="flex flex-row items-end">
-                <CheckBox onChange={onChangeRemember} checked={remember} />
-                <Text className="text-white ml-2">Remember Me</Text>
+                <CheckBox onChange={onchangeTermService} checked={acpTerm} />
+                <Text className="text-white ml-2">Accept terms and services</Text>
               </View>
-              <Link href={"/(tabs)"} className="text-[#00B746] text-sm">
-                Forgot your password?
-              </Link>
+             
             </View>
             <View className="sign_in_btn">
               <Shadow
@@ -172,26 +260,27 @@ export default function register() {
               >
                 <TouchableOpacity
                   activeOpacity={0.6}
-                  className="bg-[#FF0200] h-[40px] w-full flex flex-row items-center justify-center rounded-md "
+                  className={`h-[40px] w-full flex flex-row items-center justify-center rounded-md bg-[#FF0200]`}
                   onPress={handleSubmit(onSubmit)}
+            
                 >
                   <Text
-                    style={{ color: "white", fontSize: 18, fontWeight: "bold" }}
+                  className={`font-bold text-white text-lg`}
                   >
-                    Sign in
+                    Sign up
                   </Text>
                 </TouchableOpacity>
               </Shadow>
             </View>
             <View className="navigate_sign_up flex flex-row items-center mt-4 justify-center">
               <Text className=" text-lg text-center">
-                Don’t have an account?
+                You have an account?
               </Text>
               <Link
                 href={"/auth/login"}
                 className="text-lg font-medium text-white ml-2"
               >
-                Sign up
+                Sign in
               </Link>
             </View>
             <View className="social_media">
@@ -216,7 +305,7 @@ export default function register() {
             </View>
           </View>
         </View>
-      </ProviderContent>
-    </KeyboardDismissWrapper>
+      </KeyboardDismissWrapper>
+    </ProviderContent>
   );
 }

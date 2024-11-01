@@ -37,7 +37,7 @@ export default function RootLayout() {
           swipeEnabled={true}
           textStyle={{ fontSize: 16 }}
           offsetBottom={120}
-          offsetTop={50}
+          offsetTop={80}
         >
           <Stack
             screenOptions={{
