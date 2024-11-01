@@ -48,19 +48,22 @@ export default function ProviderContent({
   const [refreshing, setRefreshing] = useState(false);
   const queryClient = useQueryClient();
   const handleRefresh = useCallback(async () => {
-    if (refreshing) return; 
-    setRefreshing(true); 
+    setRefreshing((prevRefreshing) => {
+      if (prevRefreshing) return prevRefreshing;
+      return true;
+    });
+  
     try {
       if (queryKey && Array.isArray(queryKey)) {
-        queryClient.invalidateQueries({ queryKey });
+        await Promise.all(
+          queryKey.map((key) => queryClient.invalidateQueries({ queryKey: [key] }))
+        );
       }
       await new Promise((resolve) => setTimeout(resolve, 1500));
     } finally {
-      setRefreshing(false); 
+      setRefreshing(false);
     }
-  }, [refreshing, queryClient, queryKey]);
-  
-
+  }, [queryClient, queryKey]);
   const renderedChildren = useMemo(() => {
     const childrenArray = [
       ...childArray,
