@@ -37,7 +37,9 @@ export default function StartPage() {
       router.navigate("/(tabs)");
     }
   };
-
+  useEffect(()=>{
+    setPageIndex(0)
+  },[])
   return !firstTry  ? (
     <Redirect href={"/(tabs)"} />
   ) : (
