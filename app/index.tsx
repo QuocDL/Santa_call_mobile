@@ -5,25 +5,42 @@ import { Redirect, useRouter } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
 import {
   Animated,
-  FlatList,
-  Image,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage"; 
 
 export default function StartPage() {
-  const firstTry = false;
+  const [firstTry, setFirstTry] = useState<boolean | null>(null);
+  const [loading, setLoading] = useState(true); // Trạng thái để theo dõi quá trình tải
   const [pageIndex, setPageIndex] = useState(0);
-  useEffect(()=>{
-    setPageIndex(0)
-  },[firstTry])
   const opacity = useRef(new Animated.Value(1)).current;
   const router = useRouter();
-  const goToPageIndex = (index: number) => {
+
+  useEffect(() => {
+    const checkFirstTry = async () => {
+      const storedValue = await AsyncStorage.getItem("firstTry");
+      if (storedValue === null) {
+        await AsyncStorage.setItem("firstTry", "true");
+        setFirstTry(true);
+      } else {
+        setFirstTry(storedValue === "true");
+      }
+      setLoading(false); // Đặt loading thành false sau khi hoàn thành kiểm tra
+    };
+
+    checkFirstTry();
+  }, []);
+
+  useEffect(() => {
+    setPageIndex(0);
+  }, [firstTry]);
+
+  const goToPageIndex = async (index: number) => {
     Animated.timing(opacity, {
       toValue: 0,
-      duration: 300, 
+      duration: 300,
       useNativeDriver: true,
     }).start(() => {
       setPageIndex(index);
@@ -34,21 +51,26 @@ export default function StartPage() {
       }).start();
     });
     if (index === 3) {
+      await AsyncStorage.setItem("firstTry", "false");
       router.navigate("/(tabs)");
     }
   };
-  useEffect(()=>{
-    setPageIndex(0)
-  },[])
-  return !firstTry  ? (
-    <Redirect href={"/(tabs)"} />
-  ) : (
-    <ProviderContent backgroundImage={images.bgWelcome} viewScroll={'none'}>
+
+  if (firstTry === false) {
+    return <Redirect href={"/(tabs)"} />;
+  }
+
+  if (loading) {
+    return null;
+  }
+
+  return (
+    <ProviderContent backgroundImage={images.bgWelcome} viewScroll={"none"}>
       <View className={`mt-6 relative min-h-screen`}>
         <Animated.View style={{ opacity }}>
           <WelcomeContent indexContent={pageIndex} />
         </Animated.View>
-        <View className=" absolute bottom-[15%] w-full">
+        <View className="absolute bottom-[15%] w-full">
           <View className="flex flex-col justify-center items-center ">
             <TouchableOpacity
               onPress={() => goToPageIndex(pageIndex + 1)}

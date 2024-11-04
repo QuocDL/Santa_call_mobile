@@ -1,11 +1,8 @@
 import { setModalOpen } from "@/redux/slice/authSlice";
 import { useTypedSelector } from "@/redux/store";
-import { useSegments, useRouter, Href, LinkProps } from "expo-router";
-import React, { useEffect, useLayoutEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { Href, LinkProps, useRouter, useSegments } from "expo-router";
+import React, { useLayoutEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import ProviderContent from "../Provider/ProviderContent";
-import images from "@/assets/images";
 
 export default function ProtectedAuth({
   children,
@@ -30,7 +27,10 @@ export default function ProtectedAuth({
         router.replace('/(tabs)')
       }
     }
-  }, [isAuth, segment, previousRoute, dispatch, router]);
+    if(segment.includes('auth') && isAuth){
+      router.replace(`${previousRoute}` as Href<LinkProps<string>>)
+    }
+  }, [isAuth, segment, previousRoute, router]);
 
   return children;
 }

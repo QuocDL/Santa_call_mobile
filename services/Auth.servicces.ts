@@ -6,6 +6,9 @@ const AuthServices = {
    },
    Register(body: FormData) {
       return apiFunface.post('/register/user', body)
+   },
+   getProfile(id:string){
+      return apiFunface.get(`/profile/${id}`)
    }
 }
 

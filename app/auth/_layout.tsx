@@ -25,7 +25,7 @@ export default () => {
                 name="left"
                 size={24}
                 color="white"
-                onPress={() => router.back()}
+                onPress={() => router.canGoBack() ? router.back() : router.navigate('/(tabs)')}
               />
             </View>
           ),
