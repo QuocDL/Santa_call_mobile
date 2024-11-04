@@ -13,6 +13,8 @@ import {
 } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import images from "@/assets/images";
+import { useAppDispatch, useTypedSelector } from "@/redux/store";
+import { setModalOpen } from "@/redux/slice/authSlice";
 
 const demoCard = [
   {
@@ -47,6 +49,15 @@ export default function BuyCoinModal({
     image: string;
     number: string;
   } | null>(null);
+  const isAuth = useTypedSelector(state => state.auth.authenticate)
+  const dispatch = useAppDispatch()
+  const handleOpenModal = ()=>{
+    if(isAuth){
+      setModalVisible(true)
+    }else{
+      dispatch(setModalOpen())
+    }
+  }
   return (
     <>
       <Modal
@@ -159,7 +170,7 @@ export default function BuyCoinModal({
         </View>
       </Modal>
       <TouchableOpacity
-        onPress={() => setModalVisible(true)}
+        onPress={handleOpenModal}
         activeOpacity={0.6}
       >
         {children}

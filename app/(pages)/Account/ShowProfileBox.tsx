@@ -1,7 +1,7 @@
 import CameraIcon from "@/assets/Icons/Camera";
 import images from "@/assets/images";
 import { useMediaPhone } from "@/hooks/useMediaPhone";
-import { logout } from "@/redux/slice/authSlice";
+import { IUser, logout } from "@/redux/slice/authSlice";
 import { useAppDispatch } from "@/redux/store";
 import { screenStyle } from "@/styles/ScreenWidth";
 import { Feather, FontAwesome, Foundation } from "@expo/vector-icons";
@@ -9,7 +9,7 @@ import { Link, useRouter } from "expo-router";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Shadow } from "react-native-shadow-2";
 
-export default function ShowProfileBox() {
+export default function ShowProfileBox({user}: {user: IUser}) {
    const { imageUri, showImagePickerOptions } = useMediaPhone()
    const dispatch = useAppDispatch()
    const router = useRouter();
@@ -71,7 +71,7 @@ export default function ShowProfileBox() {
                      <FontAwesome name="user" size={24} color="#FF0200" />
                   </View>
                   <Text className="font-medium text-base text-[#FF0200] ml-2">
-                     Nguyen Van Binh
+                    {user?.user_name}
                   </Text>
                </View>
                <View className="flex flex-row items-center">
@@ -79,7 +79,7 @@ export default function ShowProfileBox() {
                      <Foundation name="mail" size={24} color="#FF0200" />
                   </View>
                   <Text className="font-medium text-base text-[#FF0200] ml-2">
-                     Binh1234@gmail.com
+                     {user?.email}
                   </Text>
                </View>
                <View className="flex flex-row items-center">

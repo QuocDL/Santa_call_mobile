@@ -7,6 +7,7 @@ import KeyboardDismissWrapper from "@/components/_common/KeyboarDimiss";
 import CheckBox from "@/components/_element/Checkbox";
 import ProviderContent from "@/components/Provider/ProviderContent";
 import { LoginSchema, LoginType } from "@/constants/validations/Auth";
+import { useAuthLogin } from "@/hooks/mutations/auth/useAuthLogin";
 import { login } from "@/redux/slice/authSlice";
 import { useAppDispatch } from "@/redux/store";
 import { screenStyle } from "@/styles/ScreenWidth";
@@ -56,15 +57,13 @@ export default function Login() {
       handleSubmit(onSubmit)();
     }
   };
+  const {mutate, isPending} = useAuthLogin()
   const onSubmit = (data: LoginType) => {
     Keyboard.dismiss()
-    console.log("Login data: ", data);
-    dispatch(
-      login({
-        name: "quoc",
-      })
-    );
-    router.navigate("/(tabs)");
+    const formData = new FormData()
+    formData.append('email_or_username', data.email_or_username)
+    formData.append('password', data.password)
+    mutate(formData)
   };
   return (
     <ProviderContent

@@ -7,14 +7,19 @@ import KeyboardDismissWrapper from "@/components/_common/KeyboarDimiss";
 import CheckBox from "@/components/_element/Checkbox";
 import ProviderContent from "@/components/Provider/ProviderContent";
 import { RegisterSchema, RegisterType } from "@/constants/validations/Auth";
+import { useAuthRegister } from "@/hooks/mutations/auth/useAuthRegister";
+import { useGetIpAddress } from "@/hooks/query/useGetIpAddress";
 import { useAppDispatch } from "@/redux/store";
 import { screenStyle } from "@/styles/ScreenWidth";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { deviceName, modelName } from "expo-device";
 import { Link, useRouter } from "expo-router";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
+  ActivityIndicator,
+  Keyboard,
   Text,
   TextInput,
   TouchableOpacity,
@@ -22,9 +27,11 @@ import {
   View
 } from "react-native";
 import { Shadow } from "react-native-shadow-2";
+
 export default function Register() {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const { data: IpDevice } = useGetIpAddress()
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [acpTerm, setAcpTerm] = useState(false);
@@ -67,9 +74,17 @@ export default function Register() {
       handleSubmit(onSubmit);
     }
   };
+  const { mutate, isPending } = useAuthRegister()
   const onSubmit = (data: RegisterType) => {
-    console.log("Register data: ", data);
-    router.replace('/auth/login')
+    Keyboard.dismiss()
+    const formData = new FormData()
+    formData.append('user_name', data.userName)
+    formData.append('password', data.password)
+    formData.append('email', data.email)
+    formData.append('link_avatar', 'demo')
+    modelName ? formData.append('device_register', modelName.replace(/ /g, "_")) : null
+    IpDevice ? formData.append('ip_register', IpDevice) : null
+    mutate(formData)
   };
   return (
     <ProviderContent
@@ -216,8 +231,8 @@ export default function Register() {
                       onChangeText={onChange}
                       value={value}
                       returnKeyType="done"
-                      onSubmitEditing={() => focusNextField("confirmPassword")}
-                      ref={(ref) => (inputRefs.current.confirmPassword = ref)} // Lưu ref
+                      onSubmitEditing={handleSubmit(onSubmit)}
+                      ref={(ref) => (inputRefs.current.confirmPassword = ref)}
                     />
                     <TouchableWithoutFeedback
                       onPress={() => setShowConfirmPassword(!showConfirmPassword)}
@@ -245,7 +260,7 @@ export default function Register() {
                 <CheckBox onChange={onchangeTermService} checked={acpTerm} />
                 <Text className="text-white ml-2">Accept terms and services</Text>
               </View>
-             
+
             </View>
             <View className="sign_in_btn">
               <Shadow
@@ -259,16 +274,17 @@ export default function Register() {
                 style={screenStyle.full}
               >
                 <TouchableOpacity
+                  disabled={isPending}
                   activeOpacity={0.6}
                   className={`h-[40px] w-full flex flex-row items-center justify-center rounded-md bg-[#FF0200]`}
                   onPress={handleSubmit(onSubmit)}
-            
+
                 >
-                  <Text
-                  className={`font-bold text-white text-lg`}
+                  {isPending ? <ActivityIndicator color={'white'} size={'small'} /> : <Text
+                    className={`font-bold text-white text-lg`}
                   >
                     Sign up
-                  </Text>
+                  </Text>}
                 </TouchableOpacity>
               </Shadow>
             </View>

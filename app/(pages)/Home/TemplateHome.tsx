@@ -9,6 +9,7 @@ import SeeImageCard from "@/components/_common/ProductCard/SeeImageCard";
 import SeeVideoCard from "@/components/_common/ProductCard/SeeVideoCard";
 import SwapImageCard from "@/components/_common/ProductCard/SwapImageCard";
 import SwapVideoCard from "@/components/_common/ProductCard/SwapVideoCard";
+import ViewUserModal from "@/components/_common/ViewUserModal";
 
 const demoNewUser = [
   { username: "Luis123", date: "24/10/2024" },
@@ -129,10 +130,12 @@ const TemplateHomeComponent = () => {
       {/* New user */}
       <View className="px-[4%] mt-4">
         <View className="bg-black rounded-md overflow-hidden">
-          <View className="flex flex-row px-3 justify-between py-1.5">
-            <Text className="text-[#FF0423] font-bold text-lg">New User</Text>
-            <AntDesign name="right" size={24} color="#FF0423" />
-          </View>
+          <ViewUserModal>
+            <View className="flex flex-row px-3 justify-between py-1.5">
+              <Text className="text-[#FF0423] font-bold text-lg">New User</Text>
+              <AntDesign name="right" size={24} color="#FF0423" />
+            </View>
+          </ViewUserModal>
           <View className="flex flex-row px-3 justify-between py-1.5">
             <View>
               <Text className="text-white">Login Name</Text>
@@ -154,9 +157,8 @@ const TemplateHomeComponent = () => {
                   }}
                 >
                   <Text
-                    className={`text-base font-medium ${
-                      index === 0 ? "text-white" : "text-black"
-                    }`}
+                    className={`text-base font-medium ${index === 0 ? "text-white" : "text-black"
+                      }`}
                     numberOfLines={1}
                     ellipsizeMode="tail"
                     style={{ width: "45%" }}
@@ -165,9 +167,8 @@ const TemplateHomeComponent = () => {
                   </Text>
                   <View className="flex flex-row justify-start w-[45%]">
                     <Text
-                      className={`text-base font-medium ${
-                        index === 0 ? "text-white" : "text-black"
-                      }`}
+                      className={`text-base font-medium ${index === 0 ? "text-white" : "text-black"
+                        }`}
                     >
                       {item.date}
                     </Text>

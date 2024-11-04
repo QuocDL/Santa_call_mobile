@@ -6,7 +6,9 @@ import images from "@/assets/images";
 import ProviderContent from "@/components/Provider/ProviderContent";
 import KeyboardDismissWrapper from "@/components/_common/KeyboarDimiss";
 import { TabBarMenu } from "@/components/_common/TabBarMenu";
+import { useGetProfile } from "@/hooks/query/auth/useGetProfile";
 import { useMediaPhone } from "@/hooks/useMediaPhone";
+import { useTypedSelector } from "@/redux/store";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Foundation from "@expo/vector-icons/Foundation";
 import { useRef, useState } from "react";
@@ -15,10 +17,13 @@ import { Text, TextInput, TouchableOpacity, View } from "react-native";
 
 
 export default function Account() {
+  const user = useTypedSelector(state => state.auth.user)
+  const {data} = useGetProfile(user?.id_user)
   return (
     <ProviderContent
       backgroundImage={images.bgImage}
       viewScroll={"flatlist"}
+      queryKey={[`PROFILE_${user?.id_user}`]}
       overflowBottom={{ enable: true, height: 30 }}
       showScrollBarY={false}
     >
@@ -26,7 +31,7 @@ export default function Account() {
         <TabBarMenu enableSearch={false} />
         <View className="px-[4%] mt-6">
           {/* box infomation user */}
-          <ShowProfileBox/>
+          <ShowProfileBox user={data?.data}/>
           {/* Form Update Profile */}
           <FormUpdateProfile/>
           {/* Setting box */}

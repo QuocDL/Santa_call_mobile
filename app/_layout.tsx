@@ -10,7 +10,16 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useReactQueryDevTools } from '@dev-plugins/react-query';
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: true,
+      retry: 3,
+      staleTime: 0,
+      refetchInterval: 10000 * 60
+    }
+  }
+})
 export default function RootLayout() {
   const [loaded] = useFonts({
     PoppinsBold: require("../assets/fonts/Poppins-Medium.ttf"),
@@ -18,10 +27,6 @@ export default function RootLayout() {
   useReactQueryDevTools(queryClient);
 
   useEffect(() => {
-    // const setBackgroundColor = async () => {
-    //   await  Platform.OS === "android" && NavigationBar.setVisibilityAsync('hidden');
-    // };
-    // setBackgroundColor();
     if (loaded) {
       SplashScreen.hideAsync();
     }
