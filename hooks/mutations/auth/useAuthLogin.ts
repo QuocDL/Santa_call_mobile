@@ -1,7 +1,7 @@
 import { useToastController } from "@/hooks/useToastController"
 import { login } from "@/redux/slice/authSlice"
 import { useAppDispatch } from "@/redux/store"
-import AuthServices from "@/services/Auth.servicces"
+import AuthServices from "@/services/Auth.services"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useMutation } from "@tanstack/react-query"
 import { router } from "expo-router"
@@ -44,6 +44,14 @@ export const useAuthLogin = ()=>{
                router.navigate('/(tabs)')
             }
          }
+      },
+      onError: (err)=>{
+         ToastController({
+            type: 'warning',
+            text: 'Error, try again!',
+            duration: 3500,
+            placement: 'top'
+         })
       }
    })
 }

@@ -1,5 +1,5 @@
 import { useToastController } from "@/hooks/useToastController"
-import AuthServices from "@/services/Auth.servicces"
+import AuthServices from "@/services/Auth.services"
 import { useMutation } from "@tanstack/react-query"
 import { useRouter } from "expo-router"
 
@@ -32,11 +32,10 @@ export const useAuthRegister = ()=>{
       onError: (err)=>{
          ToastController({
             type: 'warning',
-            text: 'Try again later',
+            text: 'Error, try again!',
             duration: 3500,
             placement: 'top'
          })
-         console.log(err)
       }
    })
 }
