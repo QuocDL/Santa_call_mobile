@@ -13,7 +13,7 @@ export default () => {
           animation: "fade",
           headerTransparent: true,
           headerTitle: "Swap image",
-          headerTitleAlign: 'center',
+          headerTitleAlign: "center",
           headerTitleStyle: {
             fontSize: 20,
             color: "white",
@@ -25,7 +25,11 @@ export default () => {
                 name="left"
                 size={24}
                 color="white"
-                onPress={() => router.back()}
+                onPress={() =>
+                  router.canGoBack()
+                    ? router.back()
+                    : router.navigate("/(tabs)")
+                }
               />
             </View>
           ),
@@ -41,8 +45,8 @@ export default () => {
         options={{
           animation: "fade",
           headerTransparent: true,
-          headerTitle: "Swap image",
-          headerTitleAlign: 'center',
+          headerTitle: "Quick Swap",
+          headerTitleAlign: "center",
           headerTitleStyle: {
             fontSize: 20,
             color: "white",
@@ -54,7 +58,11 @@ export default () => {
                 name="left"
                 size={24}
                 color="white"
-                onPress={() => router.back()}
+                onPress={() =>
+                  router.canGoBack()
+                    ? router.back()
+                    : router.navigate("/(tabs)")
+                }
               />
             </View>
           ),

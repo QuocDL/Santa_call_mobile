@@ -6,12 +6,18 @@ import SwapIcon from "@/assets/Icons/Swap";
 import { Tabs, useRouter, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect } from "react";
-import { ImageBackground, Platform, View } from "react-native";
+import {
+  ImageBackground,
+  Platform,
+  Pressable,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import images from "@/assets/images";
 import ProtectedAuth from "@/components/Protected/ProtectedAuth";
 import AuthProtectedModal from "@/components/_common/AuthProtectedModal";
 export default function TabLayout() {
-  const router =useRouter()
+  const router = useRouter();
   return (
     <>
       <ProtectedAuth>
@@ -50,16 +56,12 @@ export default function TabLayout() {
               }}
             />
             <Tabs.Screen
-              name="(protected)/QuickSwap"
-              listeners={{
-                tabPress: ()=>{
-                  router.push('/swap/QuickSwap')
-                }
-              }}
+              name="(NonActiveScreen)/NonActive"
               options={{
                 title: "QuickSwap",
                 tabBarIcon: ({ color }) => (
-                  <View
+                  <TouchableOpacity
+                    activeOpacity={0.8}
                     style={{
                       position: "absolute",
                       top: -30,
@@ -69,9 +71,10 @@ export default function TabLayout() {
                       borderColor: "#FF0000",
                       borderWidth: 4,
                     }}
+                    onPress={() => router.navigate("/swap/QuickSwap")}
                   >
                     <SwapIcon color={color} />
-                  </View>
+                  </TouchableOpacity>
                 ),
               }}
             />
@@ -89,7 +92,6 @@ export default function TabLayout() {
                 tabBarIcon: ({ color }) => <AccountIcon color={color} />,
               }}
             />
-            {/* Hidden Tab */}
           </Tabs>
         </ImageBackground>
         <AuthProtectedModal />

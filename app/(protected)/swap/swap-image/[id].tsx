@@ -1,7 +1,6 @@
 import AddphotoIcon from '@/assets/Icons/Addphoto'
 import images from '@/assets/images'
 import { Videos } from '@/assets/Videos'
-import SeeImageCard from '@/components/_common/ProductCard/SeeImageCard'
 import SwapImageCard from '@/components/_common/ProductCard/SwapImageCard'
 import SwapVideoCard from '@/components/_common/ProductCard/SwapVideoCard'
 import ProviderContent from '@/components/Provider/ProviderContent'
@@ -20,7 +19,7 @@ export default function SwapImage() {
       viewScroll='flatlist'
     >
       <View className='px-[4%] mt-4'>
-        <Text className='text-white text-xl font-bold'>Name Template</Text>
+        <Text className='text-white text-xl font-bold'>Name Template {id}</Text>
         <View className='flex flex-row justify-end mr-[7%] mt-4'>
           <Text className='text-xl font-bold text-white'>Swap Image</Text>
         </View>
@@ -47,8 +46,8 @@ export default function SwapImage() {
           </View>
         </View>
         <View className='flex mt-6 flex-row justify-center items-center'>
-          <TouchableOpacity className='bg-[#FF0200] px-2 py-2 rounded-md'>
-            <Text className='text-white text-base font-medium'>Swap   -1 <Image source={images.coinImage} /></Text>
+          <TouchableOpacity className='bg-[#FF0200] px-3 py-2 rounded-md'>
+            <Text className='text-white text-base font-medium'>Swap    -1 <Image source={images.coinImage} /></Text>
           </TouchableOpacity>
         </View>
       </View>

@@ -52,11 +52,13 @@ export default function ProviderContent({
       if (prevRefreshing) return prevRefreshing;
       return true;
     });
-  
+
     try {
       if (queryKey && Array.isArray(queryKey)) {
         await Promise.all(
-          queryKey.map((key) => queryClient.invalidateQueries({ queryKey: [key] }))
+          queryKey.map((key) =>
+            queryClient.invalidateQueries({ queryKey: [key] })
+          )
         );
       }
       await new Promise((resolve) => setTimeout(resolve, 1500));
@@ -96,10 +98,12 @@ export default function ProviderContent({
               style={styleScroll}
               className={classNameScroll}
               refreshControl={
-                <RefreshControl
-                  refreshing={refreshing}
-                  onRefresh={handleRefresh}
-                />
+                enablePullToRefresh ? (
+                  <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={handleRefresh}
+                  />
+                ) : undefined
               }
             />
           ) : viewScroll === "scrollview" ? (
@@ -109,10 +113,12 @@ export default function ProviderContent({
               style={styleScroll}
               className={classNameScroll}
               refreshControl={
-                <RefreshControl
-                  refreshing={refreshing}
-                  onRefresh={handleRefresh}
-                />
+                enablePullToRefresh ? (
+                  <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={handleRefresh}
+                  />
+                ) : undefined
               }
             >
               {renderedChildren}

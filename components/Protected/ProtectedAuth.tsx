@@ -10,28 +10,30 @@ export default function ProtectedAuth({
   children: React.ReactNode;
 }) {
   const segment = useSegments() as string[];
-  const isAuth = useTypedSelector(state => state.auth.authenticate);
+  const isAuth = useTypedSelector((state) => state.auth.authenticate);
   const dispatch = useDispatch();
   const router = useRouter();
   const [previousRoute, setPreviousRoute] = useState<string | null>(null);
   useLayoutEffect(() => {
     if (segment.length) {
-      setPreviousRoute(segment.join('/'));
+      setPreviousRoute(segment.join("/"));
     }
-    if (segment.includes('(protected)') && !isAuth) {
+    if (segment.includes("(protected)") && !isAuth) {
       dispatch(setModalOpen());
-      if (segment.includes('Account')) {
-        router.replace(`${previousRoute}` as Href<LinkProps<string>>)
+      if (segment.includes("Account")) {
+        router.replace(`${previousRoute}` as Href<LinkProps<string>>);
       } else {
         if (router.canDismiss()) {
-          router.dismiss()
+          router.dismiss();
+        } else {
+          router.replace(`${previousRoute}` as Href<LinkProps<string>>);
         }
       }
     }
-    if (segment.includes('auth') && isAuth) {
-      router.replace(`${previousRoute}` as Href<LinkProps<string>>)
+    if (segment.includes("auth") && isAuth) {
+      router.replace(`${previousRoute}` as Href<LinkProps<string>>);
     }
-  }, [isAuth, segment, previousRoute, router]);
+  }, [isAuth, segment]);
 
   return children;
 }
