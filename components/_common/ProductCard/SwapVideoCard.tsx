@@ -29,7 +29,7 @@ const SwapVideoCard = ({
   title,
   videoSrouce,
   href,
-  size = "large",
+  size = "medium",
   resizeMode = "cover",
 }: IProps) => {
   const [loadingSource, setLoadingSource] = useState<boolean>();
@@ -45,9 +45,8 @@ const SwapVideoCard = ({
     <TouchableOpacity
       activeOpacity={0.9}
       onPress={() => (loadingSource ? null : router.navigate(href))}
-      className={`bg-white relative  rounded-md overflow-hidden ${
-        size === "large" && "h-[130px] w-[210px]"
-      } ${size === "medium" && "w-[175px] h-[141px]"} `}
+      className={`bg-white relative  rounded-md overflow-hidden ${size === "medium" && "h-[130px] w-[210px]"
+        } ${size === "large" && "w-[50%] h-[150px]"} `}
     >
       {loadingSource && (
         <View
@@ -111,12 +110,13 @@ const SwapVideoCard = ({
           <Text className="text-white font-medium">Use</Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        onPress={handlePlayPress}
-        className="absolute top-[50%] -translate-y-5 right-[50%] translate-x-5"
-      >
-        <PlayVideo />
-      </TouchableOpacity>
+      {!loadingSource &&
+        <TouchableOpacity
+          onPress={handlePlayPress}
+          className="absolute top-[50%] -translate-y-5 right-[50%] translate-x-5"
+        >
+          <PlayVideo />
+        </TouchableOpacity>}
     </TouchableOpacity>
   );
 };

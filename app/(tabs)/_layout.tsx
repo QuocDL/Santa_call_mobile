@@ -3,7 +3,7 @@ import VideoIcon from "@/assets/Icons/Video";
 import ImageIcon from "@/assets/Icons/Images";
 import AccountIcon from "@/assets/Icons/Account";
 import SwapIcon from "@/assets/Icons/Swap";
-import { Tabs, useSegments } from "expo-router";
+import { Tabs, useRouter, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect } from "react";
 import { ImageBackground, Platform, View } from "react-native";
@@ -11,6 +11,7 @@ import images from "@/assets/images";
 import ProtectedAuth from "@/components/Protected/ProtectedAuth";
 import AuthProtectedModal from "@/components/_common/AuthProtectedModal";
 export default function TabLayout() {
+  const router =useRouter()
   return (
     <>
       <ProtectedAuth>
@@ -22,7 +23,7 @@ export default function TabLayout() {
           <StatusBar style="light" />
           <Tabs
             screenOptions={{
-              tabBarActiveTintColor: "#FF0000", 
+              tabBarActiveTintColor: "#FF0000",
               headerShown: false,
               tabBarInactiveTintColor: "#FFFFFF",
               // tabBarHideOnKeyboard: true,
@@ -50,6 +51,11 @@ export default function TabLayout() {
             />
             <Tabs.Screen
               name="(protected)/QuickSwap"
+              listeners={{
+                tabPress: ()=>{
+                  router.push('/swap/QuickSwap')
+                }
+              }}
               options={{
                 title: "QuickSwap",
                 tabBarIcon: ({ color }) => (
@@ -84,15 +90,9 @@ export default function TabLayout() {
               }}
             />
             {/* Hidden Tab */}
-            <Tabs.Screen
-              name="(protected)/swap"
-              options={{
-                tabBarButton: () => null, 
-              }}
-            />
           </Tabs>
         </ImageBackground>
-        <AuthProtectedModal/>
+        <AuthProtectedModal />
       </ProtectedAuth>
     </>
   );

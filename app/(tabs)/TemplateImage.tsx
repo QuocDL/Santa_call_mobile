@@ -9,6 +9,7 @@ export default function TemplateImageScreen() {
     <ProviderContent
       backgroundImage={images.bgImage}
       viewScroll={'flatlist'}
+      overflowBottom={{enable: true, height: 50}}
     >
         <TabBarMenu />
         <ImageTemplate/>

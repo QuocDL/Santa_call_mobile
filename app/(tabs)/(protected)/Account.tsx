@@ -7,13 +7,8 @@ import ProviderContent from "@/components/Provider/ProviderContent";
 import KeyboardDismissWrapper from "@/components/_common/KeyboarDimiss";
 import { TabBarMenu } from "@/components/_common/TabBarMenu";
 import { useGetProfile } from "@/hooks/query/auth/useGetProfile";
-import { useMediaPhone } from "@/hooks/useMediaPhone";
 import { useTypedSelector } from "@/redux/store";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-import Foundation from "@expo/vector-icons/Foundation";
-import { useRef, useState } from "react";
-import { Control, Controller, useForm } from "react-hook-form";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { View } from "react-native";
 
 
 export default function Account() {

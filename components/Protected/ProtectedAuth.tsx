@@ -20,14 +20,15 @@ export default function ProtectedAuth({
     }
     if (segment.includes('(protected)') && !isAuth) {
       dispatch(setModalOpen());
-      if (previousRoute) {
-        router.replace(`/${previousRoute}` as Href<LinkProps<string>>);
-      }
-      if(!previousRoute){
-        router.replace('/(tabs)')
+      if (segment.includes('Account')) {
+        router.replace(`${previousRoute}` as Href<LinkProps<string>>)
+      } else {
+        if (router.canDismiss()) {
+          router.dismiss()
+        }
       }
     }
-    if(segment.includes('auth') && isAuth){
+    if (segment.includes('auth') && isAuth) {
       router.replace(`${previousRoute}` as Href<LinkProps<string>>)
     }
   }, [isAuth, segment, previousRoute, router]);

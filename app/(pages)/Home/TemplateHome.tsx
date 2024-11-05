@@ -36,7 +36,7 @@ const TemplateHomeComponent = () => {
           <CategoryCard
             cardType="image"
             image={images.featuredImage}
-            href={"/(tabs)/TemplateImage"}
+            href={"/(tabs)/TemplateVideo"}
             title="Happy new year photos"
           />
         </View>
@@ -85,7 +85,7 @@ const TemplateHomeComponent = () => {
           renderItem={() => (
             <SwapImageCard
               size="medium"
-              href={"/(tabs)/(protected)/QuickSwap"}
+              href={"/swap/QuickSwap"}
             />
           )}
           ListFooterComponent={() => (

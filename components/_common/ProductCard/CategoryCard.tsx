@@ -72,7 +72,7 @@ export default function CategoryCard({
         <Video
           ref={videoRef}
           source={typeof video === "string" ? { uri: video } : video}
-          className="rounded-lg overflow-hidden w-full h-full"
+          className="w-full h-full"
           resizeMode={ResizeMode.COVER}
           shouldPlay={false}
           isLooping={true}

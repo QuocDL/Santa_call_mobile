@@ -29,7 +29,36 @@ export default () => {
               />
             </View>
           ),
-          headerRight: ()  => (
+          headerRight: () => (
+            <View className="py-1.5 px-2 bg-white rounded-full">
+              <NotificationIcon />
+            </View>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="QuickSwap"
+        options={{
+          animation: "fade",
+          headerTransparent: true,
+          headerTitle: "Swap image",
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontSize: 20,
+            color: "white",
+            fontWeight: "bold",
+          },
+          headerLeft: () => (
+            <View>
+              <AntDesign
+                name="left"
+                size={24}
+                color="white"
+                onPress={() => router.back()}
+              />
+            </View>
+          ),
+          headerRight: () => (
             <View className="py-1.5 px-2 bg-white rounded-full">
               <NotificationIcon />
             </View>

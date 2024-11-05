@@ -8,8 +8,8 @@ export default function TemplateVideoScreen() {
   return (
     <ProviderContent
       backgroundImage={images.bgImage}
-      viewScroll="none"
-      classNameScroll="min-h-screen"
+      viewScroll="flatlist"
+      overflowBottom={{enable: true, height: 50}}
     >
       <TabBarMenu />
       <VideoTemplate/>
