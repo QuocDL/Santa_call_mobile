@@ -13,7 +13,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-
+import { VideoFullscreenUpdate } from "expo-av";
 type IProps = {
   imageSource?: string | ImageSourcePropType;
   videoSrouce?: string | AVPlaybackSource;
@@ -46,11 +46,11 @@ const SwapVideoCard = ({
   };
 
   const handleFullscreenUpdate = (event: any) => {
-    if (event.fullscreenUpdate === "playerDidPresent") {
+    if (event.fullscreenUpdate === VideoFullscreenUpdate.PLAYER_DID_PRESENT) {
       setIsFullscreen(true);
-    } else if (event.fullscreenUpdate === "playerDidDismiss") {
+    } else if (event.fullscreenUpdate === VideoFullscreenUpdate.PLAYER_DID_DISMISS) {
       if (videoRef.current) {
-        videoRef.current.stopAsync(); 
+        videoRef.current.stopAsync();
       }
       setIsFullscreen(false);
     }

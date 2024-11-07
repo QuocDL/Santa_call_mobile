@@ -13,6 +13,7 @@ import React from "react";
 import {
   FlatList,
   Image,
+  Platform,
   Text,
   TextInput,
   TouchableOpacity,
@@ -26,7 +27,7 @@ export default function SwapVideo() {
     <ProviderContent
       backgroundImage={images.bgImage}
       viewScroll="flatlist"
-      classNameScroll="min-h-screen"
+      classNameScroll={`min-h-screen ${Platform.OS === 'android' && 'mt-[15%]'}`}
       overflowBottom={{enable: true, height: 150}}
     >
       <View className="flex flex-col items-center">

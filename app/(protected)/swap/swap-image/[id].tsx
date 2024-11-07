@@ -9,7 +9,7 @@ import { LinkType } from '@/interfaces/Helper'
 import { AntDesign } from '@expo/vector-icons'
 import { useLocalSearchParams } from 'expo-router'
 import React from 'react'
-import { FlatList, Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { FlatList, Image, Platform, Text, TextInput, TouchableOpacity, View } from 'react-native'
 
 export default function SwapImage() {
   const { id } = useLocalSearchParams()
@@ -18,7 +18,7 @@ export default function SwapImage() {
     <ProviderContent
       backgroundImage={images.bgImage}
       viewScroll='flatlist'
-      classNameScroll='min-h-screen'
+      classNameScroll={`min-h-screen ${Platform.OS === 'android' && 'mt-[15%]'}`}
       overflowBottom={{enable: true, height: 150}}
     >
       <View className='px-[4%] mt-4'>

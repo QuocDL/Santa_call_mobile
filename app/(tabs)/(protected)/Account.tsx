@@ -18,6 +18,7 @@ export default function Account() {
     <ProviderContent
       backgroundImage={images.bgImage}
       viewScroll={"flatlist"}
+      enablePullToRefresh
       queryKey={[`PROFILE_${user?.id_user}`]}
       overflowBottom={{ enable: true, height: 30 }}
       showScrollBarY={false}
