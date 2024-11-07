@@ -1,10 +1,8 @@
 import PlayVideo from "@/assets/Icons/PlayVideo";
 import { useRouterProtected } from "@/hooks/ProtectedAuth/useRouterProtected";
-import { setModalOpen } from "@/redux/slice/authSlice";
-import { useAppDispatch, useTypedSelector } from "@/redux/store";
 import { cardStyle } from "@/styles/CardStyle";
 import { AVPlaybackSource, ResizeMode, Video } from "expo-av";
-import { Href, LinkProps, useRouter } from "expo-router";
+import { Href, LinkProps } from "expo-router";
 import React, { useRef, useState } from "react";
 import {
   ActivityIndicator,
@@ -15,15 +13,17 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+
 type IProps = {
   imageSource?: string | ImageSourcePropType;
   videoSrouce?: string | AVPlaybackSource;
-  href:  Href<LinkProps<string>> ;
+  href: Href<LinkProps<string>>;
   description?: string;
   title?: string;
   size?: "medium" | "large";
   resizeMode?: ImageResizeMode | ResizeMode;
 };
+
 const SwapVideoCard = ({
   description,
   imageSource,
@@ -33,13 +33,26 @@ const SwapVideoCard = ({
   size = "medium",
   resizeMode = "cover",
 }: IProps) => {
-  const [loadingSource, setLoadingSource] = useState<boolean>();
+  const [loadingSource, setLoadingSource] = useState<boolean>(true);
+  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
   const router = useRouterProtected();
   const videoRef = useRef<Video | null>(null);
+
   const handlePlayPress = () => {
     if (videoRef.current) {
-      videoRef.current.presentFullscreenPlayer();
-      videoRef.current.playAsync();
+      videoRef.current.presentFullscreenPlayer(); 
+      videoRef.current.playAsync(); 
+    }
+  };
+
+  const handleFullscreenUpdate = (event: any) => {
+    if (event.fullscreenUpdate === "playerDidPresent") {
+      setIsFullscreen(true);
+    } else if (event.fullscreenUpdate === "playerDidDismiss") {
+      if (videoRef.current) {
+        videoRef.current.stopAsync(); 
+      }
+      setIsFullscreen(false);
     }
   };
 
@@ -47,9 +60,9 @@ const SwapVideoCard = ({
     <TouchableOpacity
       activeOpacity={0.9}
       onPress={() => (loadingSource ? null : router.navigate(href))}
-      className={`bg-white relative  rounded-md overflow-hidden ${
+      className={`bg-white relative rounded-md overflow-hidden ${
         size === "medium" && "h-[130px] w-[210px]"
-      } ${size === "large" && "w-[50%] h-[150px]"} `}
+      } ${size === "large" && "w-[50%] h-[150px]"}`}
     >
       {loadingSource && (
         <View
@@ -76,16 +89,17 @@ const SwapVideoCard = ({
         <Video
           className="w-full h-full"
           ref={videoRef}
-          resizeMode={resizeMode as ResizeMode}
+          resizeMode={isFullscreen ? ResizeMode.CONTAIN : resizeMode as ResizeMode}  
           source={
             typeof videoSrouce === "string" ? { uri: videoSrouce } : videoSrouce
           }
           isMuted={true}
           shouldPlay={false}
           isLooping={true}
-          onLoad={() => setLoadingSource(false)}
           onError={() => setLoadingSource(false)}
           onLoadStart={() => setLoadingSource(true)}
+          onReadyForDisplay={() => setLoadingSource(false)}
+          onFullscreenUpdate={handleFullscreenUpdate}
         />
       )}
 
@@ -113,6 +127,7 @@ const SwapVideoCard = ({
           <Text className="text-white font-medium">Use</Text>
         </TouchableOpacity>
       </View>
+
       {!loadingSource && (
         <TouchableOpacity
           onPress={handlePlayPress}

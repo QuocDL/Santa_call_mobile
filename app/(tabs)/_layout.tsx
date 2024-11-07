@@ -61,7 +61,7 @@ export default function TabLayout() {
               listeners={{
                 tabPress: (e) => {
                   e.preventDefault();
-                  router.navigate("/(protected)/Account");
+                  router.navigate("/(protected)/swap/QuickSwap");
                 },
               }}
               options={{

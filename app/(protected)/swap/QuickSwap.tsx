@@ -1,5 +1,5 @@
-import QuickSwapImageContent from "@/components/(pages)/Swap/QuickSwapImageContent";
-import QuickSwapVideoContent from "@/components/(pages)/Swap/QuickSwapVideoContent";
+import QuickSwapImageContent from "@/components/Pages/Swap/QuickSwapImageContent";
+import QuickSwapVideoContent from "@/components/Pages/Swap/QuickSwapVideoContent";
 import images from "@/assets/images";
 import { Videos } from "@/assets/Videos";
 import SwapImageCard from "@/components/_common/ProductCard/SwapImageCard";

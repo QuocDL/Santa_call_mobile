@@ -11,7 +11,6 @@ export default function ProtectedAuth({
   const isAuth = useTypedSelector((state) => state.auth.authenticate);
   const router = useRouter()
   useEffect(()=>{
-    console.log(segment)
     if(!isAuth && segment.includes('(protected)')){
       router.navigate('/(tabs)')
     }

@@ -93,7 +93,7 @@ export default function SwapVideo() {
           renderItem={() => (
             <SwapImageCard
               size="medium"
-              href={"/(tabs)/(protected)/QuickSwap" as LinkType}
+              href={"/(protected)/swap/swap-image/2" as LinkType}
             />
           )}
         />
@@ -109,7 +109,7 @@ export default function SwapVideo() {
           }}
           renderItem={() => (
             <SwapVideoCard
-              href={"/(tabs)/TemplateVideo"}
+              href={"/(protected)/swap/swap-video/2" as LinkType}
               videoSrouce={Videos.trailerWelcome}
             />
           )}

@@ -76,6 +76,8 @@ export default function CategoryCard({
           resizeMode={ResizeMode.COVER}
           shouldPlay={false}
           isLooping={true}
+          onLoadStart={()=> setLoadingSource(true)}
+          onReadyForDisplay={()=> setLoadingSource(false)}
         />
       )}
       <View
