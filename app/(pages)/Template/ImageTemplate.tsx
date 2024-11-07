@@ -1,6 +1,7 @@
 import images from "@/assets/images";
 import SwapImageCard from "@/components/_common/ProductCard/SwapImageCard";
 import Pagination from "@/components/_element/Pagination";
+import { LinkType } from "@/interfaces/Helper";
 import React, { memo } from "react";
 import { FlatList, Text, View } from "react-native";
 
@@ -22,7 +23,7 @@ export const ImageTemplate = memo(() => {
         }}
       
         renderItem={() => (
-          <SwapImageCard image={images.welcome.secondImage} title="Name template" description="Download: 230" href={'/(protected)/swap/swap-image/2'} />
+          <SwapImageCard image={images.welcome.secondImage} title="Name template" description="Download: 230" href={'/(protected)/swap/swap-image/2' as LinkType} />
         )}
       />
       <Pagination totalPage={50} onChangePage={() => console.log('ahihi')} />

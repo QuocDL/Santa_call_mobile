@@ -1,7 +1,8 @@
 import images from "@/assets/images";
+import { useRouterProtected } from "@/hooks/ProtectedAuth/useRouterProtected";
+import { LinkType } from "@/interfaces/Helper";
 import { cardStyle } from "@/styles/CardStyle";
-import { AntDesign } from "@expo/vector-icons";
-import { Href, LinkProps, useRouter } from "expo-router";
+import { Href, LinkProps } from "expo-router";
 import React, { useState, memo } from "react";
 import {
   ActivityIndicator,
@@ -21,20 +22,20 @@ const SwapImageCard = ({
   size = "large",
   resizeMode = "cover",
 }: {
-  href:string;
+  href: Href<LinkProps<string>>; 
   image?: string | ImageSourcePropType;
   title?: string;
   description?: string;
   size?: "medium" | "large";
   resizeMode?: ImageResizeMode;
 }) => {
-  const router = useRouter();
+  const router = useRouterProtected();
   const [loadingImg, setLoadingImg] = useState<boolean>();
   
   return (
     <TouchableOpacity
       activeOpacity={0.9}
-      onPress={() => (loadingImg ? null : router.navigate(href as Href<LinkProps<string>>))}
+      onPress={() => (loadingImg ? null : router.navigate(href as LinkType))}
       className={`relative  bg-white overflow-hidden rounded-md flex flex-row justify-center items-center ${
         size === "medium" && "w-[135px] h-[176px]"
       } ${size === "large" && "w-[50%] h-[210px]"}`}
@@ -78,7 +79,7 @@ const SwapImageCard = ({
             {description || "Swap day: 12/10/2024"}
           </Text>
         </View>
-        <TouchableOpacity className={`absolute ${size === 'large' ? 'right-1 top-3' : 'right-1 top-0.5'}  bg-[#C90019] py-1 px-3 rounded-md`}>
+        <TouchableOpacity onPress={()=> (loadingImg ? null : router.navigate(href as LinkType))} className={`absolute ${size === 'large' ? 'right-1 top-3' : 'right-1 top-0.5'}  bg-[#C90019] py-1 px-3 rounded-md`}>
           <Text className="text-white">Use</Text>
         </TouchableOpacity>
       </View>

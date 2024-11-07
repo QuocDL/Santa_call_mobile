@@ -1,8 +1,6 @@
-import { setModalOpen } from "@/redux/slice/authSlice";
 import { useTypedSelector } from "@/redux/store";
-import { Href, LinkProps, useRouter, useSegments } from "expo-router";
-import React, { useLayoutEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useRouter, useSegments } from "expo-router";
+import React, { useEffect } from "react";
 
 export default function ProtectedAuth({
   children,
@@ -11,29 +9,12 @@ export default function ProtectedAuth({
 }) {
   const segment = useSegments() as string[];
   const isAuth = useTypedSelector((state) => state.auth.authenticate);
-  const dispatch = useDispatch();
-  const router = useRouter();
-  const [previousRoute, setPreviousRoute] = useState<string | null>(null);
-  useLayoutEffect(() => {
-    if (segment.length) {
-      setPreviousRoute(segment.join("/"));
+  const router = useRouter()
+  useEffect(()=>{
+    console.log(segment)
+    if(!isAuth && segment.includes('(protected)')){
+      router.navigate('/(tabs)')
     }
-    if (segment.includes("(protected)") && !isAuth) {
-      dispatch(setModalOpen());
-      if (segment.includes("Account")) {
-        router.replace(`${previousRoute}` as Href<LinkProps<string>>);
-      } else {
-        if (router.canDismiss()) {
-          router.dismiss();
-        } else {
-          router.replace(`${previousRoute}` as Href<LinkProps<string>>);
-        }
-      }
-    }
-    if (segment.includes("auth") && isAuth) {
-      router.replace(`${previousRoute}` as Href<LinkProps<string>>);
-    }
-  }, [isAuth, segment]);
-
+  },[segment])
   return children;
 }

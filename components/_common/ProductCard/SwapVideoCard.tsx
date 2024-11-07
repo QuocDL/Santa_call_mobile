@@ -1,6 +1,7 @@
 import PlayVideo from "@/assets/Icons/PlayVideo";
-import images from "@/assets/images";
-import { Videos } from "@/assets/Videos";
+import { useRouterProtected } from "@/hooks/ProtectedAuth/useRouterProtected";
+import { setModalOpen } from "@/redux/slice/authSlice";
+import { useAppDispatch, useTypedSelector } from "@/redux/store";
 import { cardStyle } from "@/styles/CardStyle";
 import { AVPlaybackSource, ResizeMode, Video } from "expo-av";
 import { Href, LinkProps, useRouter } from "expo-router";
@@ -17,7 +18,7 @@ import {
 type IProps = {
   imageSource?: string | ImageSourcePropType;
   videoSrouce?: string | AVPlaybackSource;
-  href: Href<LinkProps<string>>;
+  href:  Href<LinkProps<string>> ;
   description?: string;
   title?: string;
   size?: "medium" | "large";
@@ -33,7 +34,7 @@ const SwapVideoCard = ({
   resizeMode = "cover",
 }: IProps) => {
   const [loadingSource, setLoadingSource] = useState<boolean>();
-  const router = useRouter();
+  const router = useRouterProtected();
   const videoRef = useRef<Video | null>(null);
   const handlePlayPress = () => {
     if (videoRef.current) {
@@ -41,12 +42,14 @@ const SwapVideoCard = ({
       videoRef.current.playAsync();
     }
   };
+
   return (
     <TouchableOpacity
       activeOpacity={0.9}
       onPress={() => (loadingSource ? null : router.navigate(href))}
-      className={`bg-white relative  rounded-md overflow-hidden ${size === "medium" && "h-[130px] w-[210px]"
-        } ${size === "large" && "w-[50%] h-[150px]"} `}
+      className={`bg-white relative  rounded-md overflow-hidden ${
+        size === "medium" && "h-[130px] w-[210px]"
+      } ${size === "large" && "w-[50%] h-[150px]"} `}
     >
       {loadingSource && (
         <View
@@ -110,13 +113,14 @@ const SwapVideoCard = ({
           <Text className="text-white font-medium">Use</Text>
         </TouchableOpacity>
       </View>
-      {!loadingSource &&
+      {!loadingSource && (
         <TouchableOpacity
           onPress={handlePlayPress}
           className="absolute top-[50%] -translate-y-5 right-[50%] translate-x-5"
         >
           <PlayVideo />
-        </TouchableOpacity>}
+        </TouchableOpacity>
+      )}
     </TouchableOpacity>
   );
 };

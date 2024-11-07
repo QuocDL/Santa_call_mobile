@@ -3,6 +3,7 @@ import { Videos } from "@/assets/Videos";
 import SwapImageCard from "@/components/_common/ProductCard/SwapImageCard";
 import SwapVideoCard from "@/components/_common/ProductCard/SwapVideoCard";
 import Pagination from "@/components/_element/Pagination";
+import { LinkType } from "@/interfaces/Helper";
 import React, { memo } from "react";
 import { FlatList, View } from "react-native";
 
@@ -21,7 +22,7 @@ export const VideoTemplate = memo(() => {
           gap: 10
         }}
         renderItem={() => (
-          <SwapVideoCard href={'/swap'} size="large" videoSrouce={Videos.trailerWelcome}/>
+          <SwapVideoCard href={'/(protected)/swap/swap-video/2' as LinkType} size="large" videoSrouce={Videos.trailerWelcome}/>
         )}
       />
       <Pagination totalPage={50} onChangePage={() => console.log('ahihi')} />

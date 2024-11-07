@@ -16,8 +16,9 @@ import {
 import images from "@/assets/images";
 import ProtectedAuth from "@/components/Protected/ProtectedAuth";
 import AuthProtectedModal from "@/components/_common/AuthProtectedModal";
+import { useRouterProtected } from "@/hooks/ProtectedAuth/useRouterProtected";
 export default function TabLayout() {
-  const router = useRouter();
+  const router = useRouterProtected();
   return (
     <>
       <ProtectedAuth>
@@ -57,11 +58,16 @@ export default function TabLayout() {
             />
             <Tabs.Screen
               name="(NonActiveScreen)/NonActive"
+              listeners={{
+                tabPress: (e) => {
+                  e.preventDefault();
+                  router.navigate("/(protected)/Account");
+                },
+              }}
               options={{
                 title: "QuickSwap",
                 tabBarIcon: ({ color }) => (
-                  <TouchableOpacity
-                    activeOpacity={0.8}
+                  <View
                     style={{
                       position: "absolute",
                       top: -30,
@@ -71,10 +77,10 @@ export default function TabLayout() {
                       borderColor: "#FF0000",
                       borderWidth: 4,
                     }}
-                    onPress={() => router.navigate("/swap/QuickSwap")}
+                   
                   >
                     <SwapIcon color={color} />
-                  </TouchableOpacity>
+                  </View>
                 ),
               }}
             />
@@ -87,6 +93,12 @@ export default function TabLayout() {
             />
             <Tabs.Screen
               name="(protected)/Account"
+              listeners={{
+                tabPress: (e) => {
+                  e.preventDefault();
+                  router.navigate("/(protected)/Account");
+                },
+              }}
               options={{
                 title: "Account",
                 tabBarIcon: ({ color }) => <AccountIcon color={color} />,

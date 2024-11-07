@@ -8,6 +8,39 @@ export default () => {
   return (
     <Stack>
       <Stack.Screen
+        name="swap-video/[id]"
+        options={{
+          animation: "fade",
+          headerTransparent: true,
+          headerTitle: "Swap video",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontSize: 20,
+            color: "white",
+            fontWeight: "bold",
+          },
+          headerLeft: () => (
+            <View>
+              <AntDesign
+                name="left"
+                size={24}
+                color="white"
+                onPress={() =>
+                  router.canGoBack()
+                    ? router.back()
+                    : router.navigate("/(tabs)")
+                }
+              />
+            </View>
+          ),
+          headerRight: () => (
+            <View className="py-1.5 px-2 bg-white rounded-full">
+              <NotificationIcon />
+            </View>
+          ),
+        }}
+      />
+      <Stack.Screen
         name="swap-image/[id]"
         options={{
           animation: "fade",

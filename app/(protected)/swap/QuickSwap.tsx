@@ -5,6 +5,7 @@ import { Videos } from "@/assets/Videos";
 import SwapImageCard from "@/components/_common/ProductCard/SwapImageCard";
 import SwapVideoCard from "@/components/_common/ProductCard/SwapVideoCard";
 import ProviderContent from "@/components/Provider/ProviderContent";
+import { LinkType } from "@/interfaces/Helper";
 import { useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { FlatList, Text, TouchableOpacity } from "react-native";
@@ -20,7 +21,7 @@ export default function QuickSwap() {
     }
   };
   return (
-    <ProviderContent backgroundImage={images.bgImage} viewScroll="flatlist">
+    <ProviderContent backgroundImage={images.bgImage} viewScroll="flatlist" overflowBottom={{enable: true, height: 150}} classNameScroll="min-h-screen">
       <View className="mt-4 px-[4%]">
         <View className="flex flex-row justify-center">
           <TouchableOpacity
@@ -53,7 +54,7 @@ export default function QuickSwap() {
           renderItem={() => (
             <SwapImageCard
               size="medium"
-              href={"/(tabs)/(protected)/QuickSwap"}
+              href={"/(protected)/swap/swap-image/2" as LinkType} 
             />
           )}
         />

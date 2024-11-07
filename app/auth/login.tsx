@@ -17,6 +17,7 @@ import { Link, useRouter } from "expo-router";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
+  ActivityIndicator,
   Keyboard,
   Text,
   TextInput,
@@ -57,13 +58,13 @@ export default function Login() {
       handleSubmit(onSubmit)();
     }
   };
-  const {mutate, isPending} = useAuthLogin()
+  const { mutate, isPending } = useAuthLogin();
   const onSubmit = (data: LoginType) => {
-    Keyboard.dismiss()
-    const formData = new FormData()
-    formData.append('email_or_username', data.email_or_username)
-    formData.append('password', data.password)
-    mutate(formData)
+    Keyboard.dismiss();
+    const formData = new FormData();
+    formData.append("email_or_username", data.email_or_username);
+    formData.append("password", data.password);
+    mutate(formData);
   };
   return (
     <ProviderContent
@@ -158,11 +159,17 @@ export default function Login() {
             </View>
 
             <View className="options_sign_in flex flex-row justify-between w-full my-2 px-1">
-              <TouchableOpacity onPress={onChangeRemember} activeOpacity={0.9} className="flex flex-row items-end">
+              <TouchableOpacity
+                onPress={onChangeRemember}
+                activeOpacity={0.9}
+                className="flex flex-row items-end"
+              >
                 <CheckBox onChange={onChangeRemember} checked={remember} />
                 <Text className="text-white ml-2">Remember Me</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => router.navigate('/auth/forgotPassword')} >
+              <TouchableOpacity
+                onPress={() => router.navigate("/auth/forgotPassword")}
+              >
                 <Text className="text-[#00B746] text-sm">
                   Forgot your password?
                 </Text>
@@ -180,16 +187,17 @@ export default function Login() {
                 style={screenStyle.full}
               >
                 <TouchableOpacity
+                  disabled={isPending}
                   activeOpacity={0.6}
                   className={`h-[40px] w-full flex flex-row items-center justify-center rounded-md bg-[#FF0200]`}
                   onPress={handleSubmit(onSubmit)}
-
                 >
-                  <Text
-                    className={`font-bold text-white text-lg`}
-                  >
-                    Sign in
-                  </Text>
+                  {isPending && <ActivityIndicator color={"white"} />}
+                  {!isPending && (
+                    <Text className={`font-bold text-white text-lg`}>
+                      Sign in
+                    </Text>
+                  )}
                 </TouchableOpacity>
               </Shadow>
             </View>
@@ -198,9 +206,8 @@ export default function Login() {
                 Don’t have an account?
               </Text>
               <TouchableOpacity
-                onPress={() => router.replace('/auth/register')}
+                onPress={() => router.replace("/auth/register")}
               >
-
                 <Text className="text-lg font-medium text-white ml-2">
                   Sign up
                 </Text>

@@ -5,6 +5,7 @@ import SwapImageCard from '@/components/_common/ProductCard/SwapImageCard'
 import SwapVideoCard from '@/components/_common/ProductCard/SwapVideoCard'
 import ProviderContent from '@/components/Provider/ProviderContent'
 import { useMediaPhone } from '@/hooks/useMediaPhone'
+import { LinkType } from '@/interfaces/Helper'
 import { AntDesign } from '@expo/vector-icons'
 import { useLocalSearchParams } from 'expo-router'
 import React from 'react'
@@ -17,6 +18,8 @@ export default function SwapImage() {
     <ProviderContent
       backgroundImage={images.bgImage}
       viewScroll='flatlist'
+      classNameScroll='min-h-screen'
+      overflowBottom={{enable: true, height: 150}}
     >
       <View className='px-[4%] mt-4'>
         <Text className='text-white text-xl font-bold'>Name Template {id}</Text>
@@ -66,7 +69,7 @@ export default function SwapImage() {
           renderItem={() => (
             <SwapImageCard
               size="medium"
-              href={"/(tabs)/(protected)/QuickSwap"}
+              href={"/(tabs)/(protected)/QuickSwap" as LinkType}
             />
           )}
         />

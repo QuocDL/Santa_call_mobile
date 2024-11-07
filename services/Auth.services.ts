@@ -1,14 +1,14 @@
 import { apiFunface } from "@/api/axiosConfig"
 
 const AuthServices = {
-   Login(body: FormData) {
-      return apiFunface.post('/login', body)
+   async Login(body: FormData) {
+      return await apiFunface.post('/login', body)
    },
-   Register(body: FormData) {
-      return apiFunface.post('/register/user', body)
+   async Register(body: FormData) {
+      return await apiFunface.post('/register/user', body)
    },
-   getProfile(id:string){
-      return apiFunface.get(`/profile/${id}`)
+   async getProfile(id:string){
+      return await apiFunface.get(`/profile/${id}`)
    }
 }
 
