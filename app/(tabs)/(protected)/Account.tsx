@@ -4,7 +4,7 @@ import ShowProfileBox from "@/components/Pages/Account/ShowProfileBox";
 import StatisticalBox from "@/components/Pages/Account/StatisticalBox";
 import images from "@/assets/images";
 import ProviderContent from "@/components/Provider/ProviderContent";
-import KeyboardDismissWrapper from "@/components/_common/KeyboarDimiss";
+import KeyboardDismissWrapper from "@/components/_element/KeyboarDimiss";
 import { TabBarMenu } from "@/components/_common/TabBarMenu";
 import { useGetProfile } from "@/hooks/query/auth/useGetProfile";
 import { useTypedSelector } from "@/redux/store";
@@ -21,7 +21,7 @@ export default function Account() {
       enablePullToRefresh
       queryKey={[`PROFILE_${user?.id_user}`]}
       overflowBottom={{ enable: true, height: 30 }}
-      showScrollBarY={false}
+      
     >
       <KeyboardDismissWrapper style={{ flex: 1 }}>
         <TabBarMenu enableSearch={false} />

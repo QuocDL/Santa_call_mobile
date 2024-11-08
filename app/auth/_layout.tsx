@@ -73,7 +73,7 @@ export default () => {
               name="left"
               size={24}
               color="white"
-              onPress={() => router.replace('/auth/login')}
+              onPress={() => router.canGoBack() ? router.back() : router.replace('/auth/login')}
             />
           </View>
         ),

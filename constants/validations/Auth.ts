@@ -41,9 +41,24 @@ export const RegisterSchema = z.object({
 export type RegisterType = z.infer<typeof RegisterSchema>
 
 export const ResetPasswordSchema = z.object({
-  email: z.string().min(1, { message: 'Please enter your email' }).email({
+  email: z.string().min(1, { message: 'Please enter your email!' }).email({
     message: 'The email must be in the correct format!'
   })
 })
 
 export type ResetPasswordType = z.infer<typeof ResetPasswordSchema>
+
+export const ChangePasswordShema = z.object({
+  old_password: z.string().min(1, {message: 'Plase enter your old password!'}).min(6, {
+    message: 'Old password must be at least 6 characters long!'
+  }),
+  new_password: z.string().min(1, {message: 'Plase enter your new password!'}).min(6, {
+    message: 'New password must be at least 6 characters long!'
+  }),
+  confirm_new_password: z.string().min(1, { message: 'Please confirm your password!' }).min(6, { message: 'Confirm password must be at least 6 characters long!' }),
+}).refine((data) => data.new_password === data.confirm_new_password,{
+  message: "Passwords don't match!",
+  path: ['confirm_new_password'],
+})
+
+export type ChangePasswordType = z.infer<typeof ChangePasswordShema>

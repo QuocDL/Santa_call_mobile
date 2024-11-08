@@ -1,6 +1,6 @@
 import MailIcon from "@/assets/Icons/Mail"
 import images from '@/assets/images'
-import KeyboardDismissWrapper from "@/components/_common/KeyboarDimiss"
+import KeyboardDismissWrapper from "@/components/_element/KeyboarDimiss"
 import ProviderContent from '@/components/Provider/ProviderContent'
 import { ResetPasswordSchema, ResetPasswordType } from "@/constants/validations/Auth"
 import { useToastController } from "@/hooks/useToastController"

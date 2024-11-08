@@ -43,6 +43,9 @@ export default function RootLayout() {
           textStyle={{ fontSize: 16 }}
           offsetBottom={120}
           offsetTop={80}
+          style={{
+            zIndex: 9999, 
+          }}
         >
           <Stack
             screenOptions={{

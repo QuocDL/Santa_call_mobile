@@ -3,7 +3,7 @@ import GoogleIcon from "@/assets/Icons/Google";
 import LockIcon from "@/assets/Icons/Lock";
 import MailIcon from "@/assets/Icons/Mail";
 import images from "@/assets/images";
-import KeyboardDismissWrapper from "@/components/_common/KeyboarDimiss";
+import KeyboardDismissWrapper from "@/components/_element/KeyboarDimiss";
 import CheckBox from "@/components/_element/Checkbox";
 import ProviderContent from "@/components/Provider/ProviderContent";
 import { LoginSchema, LoginType } from "@/constants/validations/Auth";
