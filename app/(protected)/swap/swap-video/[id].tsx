@@ -5,7 +5,7 @@ import SwapImageCard from "@/components/_common/ProductCard/SwapImageCard";
 import SwapVideoCard from "@/components/_common/ProductCard/SwapVideoCard";
 import VideoLoading from "@/components/_element/VideoLoading";
 import ProviderContent from "@/components/Provider/ProviderContent";
-import { useMediaPhone } from "@/hooks/useMediaPhone";
+import useMediaPhone from "@/hooks/useMediaPhone";
 import { LinkType } from "@/interfaces/Helper";
 import { AntDesign } from "@expo/vector-icons";
 import { useLocalSearchParams } from "expo-router";

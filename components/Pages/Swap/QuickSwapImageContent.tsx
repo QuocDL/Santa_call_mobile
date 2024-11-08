@@ -1,20 +1,16 @@
 import AddphotoIcon from "@/assets/Icons/Addphoto";
 import images from "@/assets/images";
-import { Videos } from "@/assets/Videos";
-import SwapImageCard from "@/components/_common/ProductCard/SwapImageCard";
-import SwapVideoCard from "@/components/_common/ProductCard/SwapVideoCard";
-import { useMediaPhone } from "@/hooks/useMediaPhone";
 import { AntDesign } from "@expo/vector-icons";
 import React from "react";
 import {
-  FlatList,
   Image,
   Text,
   TextInput,
   TouchableOpacity,
-  View,
+  View
 } from "react-native";
 import ChooseImageModal from "./_components/ChooseImageModal";
+import useMediaPhone from "@/hooks/useMediaPhone";
 
 export default function QuickSwapImageContent() {
   const { imageUri, showImagePickerOptions } = useMediaPhone();
