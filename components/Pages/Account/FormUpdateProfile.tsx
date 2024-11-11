@@ -1,10 +1,8 @@
-import { FontAwesome, Foundation } from '@expo/vector-icons';
-import React, { useEffect, useRef, useState } from 'react'
+import { IUser } from '@/redux/slice/authSlice';
+import { FontAwesome } from '@expo/vector-icons';
+import React, { useEffect, useRef, useState } from 'react';
 import { Control, Controller, useForm } from 'react-hook-form';
-import { Text } from 'react-native';
-import { TextInput } from 'react-native';
-import { View } from 'react-native';
-import { TouchableOpacity } from 'react-native';
+import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 interface EditableFormProps {
    control: Control<any>;
 }
@@ -13,11 +11,11 @@ interface EditableFields {
 }
 const demoData = {
    username: "Nguyen Van Binh",
-   email: "Binh1234@gmail.com",
+   email: "Binh1234@gmailß.com",
    birthday: "02/03/1999",
    phone: "0324567891",
 }
-export default function FormUpdateProfile() {
+export default function FormUpdateProfile({user}: {user: IUser}) {
    const {
       control,
       handleSubmit,
@@ -64,6 +62,10 @@ export default function FormUpdateProfile() {
    }
    useEffect(()=>{
       handleCancelEdit()
+      reset({
+         email: user.email,
+         username: user.user_name
+      })
    },[demoData])
    return (
       <View className="bg-[#FF0200] overflow-hidden mt-4  rounded-md ">

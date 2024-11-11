@@ -28,6 +28,7 @@ export default function AuthProtectedModal() {
                <TouchableOpacity
                   style={StyleSheet.absoluteFill}
                   activeOpacity={1}
+                  onPress={()=> dispatch(setModalClose())}
                />
                <View className="bg-white overflow-hidden w-[95vw] rounded-md p-5 relative">
                   <TouchableOpacity activeOpacity={0.5} onPress={()=>{

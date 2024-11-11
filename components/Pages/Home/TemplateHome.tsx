@@ -6,7 +6,7 @@ import SeeVideoCard from "@/components/_common/ProductCard/SeeVideoCard";
 import SwapImageCard from "@/components/_common/ProductCard/SwapImageCard";
 import SwapVideoCard from "@/components/_common/ProductCard/SwapVideoCard";
 import ViewUserModal from "@/components/_common/ViewUserModal";
-import { useRouterProtected } from "@/hooks/ProtectedAuth/useRouterProtected";
+import { useRouterProtected } from "@/hooks/Protected/useRouterProtected";
 import { LinkType } from "@/interfaces/Helper";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import React, { memo } from "react";

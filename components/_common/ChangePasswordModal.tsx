@@ -19,14 +19,14 @@ import {
 } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
-import { useRouterProtected } from "@/hooks/ProtectedAuth/useRouterProtected";
 import {
   ChangePasswordShema,
   ChangePasswordType,
 } from "@/constants/validations/Auth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useChangePassword } from "@/hooks/mutations/auth/useChangePassword";
+import { useChangePassword } from "@/hooks/auth/mutations/useChangePassword";
 import { useToastController } from "@/hooks/useToastController";
+import { useRouterProtected } from "@/hooks/Protected/useRouterProtected";
 
 const screenHeight = Dimensions.get("window").height;
 

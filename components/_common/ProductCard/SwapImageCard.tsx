@@ -1,5 +1,5 @@
 import images from "@/assets/images";
-import { useRouterProtected } from "@/hooks/ProtectedAuth/useRouterProtected";
+import { useRouterProtected } from "@/hooks/Protected/useRouterProtected";
 import { LinkType } from "@/interfaces/Helper";
 import { cardStyle } from "@/styles/CardStyle";
 import { Href, LinkProps } from "expo-router";

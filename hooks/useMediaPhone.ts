@@ -5,7 +5,6 @@ import { Alert } from "react-native";
 const useMediaPhone = () => {
   const [imageUri, setImage] = useState<string | null>(null);
   const [videoUri, setVideo] = useState<string | null>(null);
-  const [onChoose, setOnSuccess] = useState<() => void>(()=>{});
 
   const handleImageSelection = (uri: string) => {
     Alert.alert(
@@ -13,14 +12,13 @@ const useMediaPhone = () => {
       "Bạn có chắc chắn chọn ảnh này?",
       [
         {
-          text: "Cancel",
+          text: "Không",
           style: "cancel",
         },
         {
-          text: "Yes",
+          text: "Chắc chắn",
           onPress: () => {
-            setImage(uri); // Lưu ảnh vào state
-            onChoose(); 
+            setImage(uri); 
           },
         },
       ],
@@ -40,8 +38,7 @@ const useMediaPhone = () => {
         {
           text: "Yes",
           onPress: () => {
-            setVideo(uri); // Lưu video vào state
-            onChoose(); // Gọi callback khi xác nhận thành công
+            setVideo(uri);
           },
         },
       ],
@@ -177,7 +174,6 @@ const useMediaPhone = () => {
     showVideoPickerOptions, 
     imageUri, 
     showImagePickerOptions,
-    setOnSuccess 
   };
 };
 

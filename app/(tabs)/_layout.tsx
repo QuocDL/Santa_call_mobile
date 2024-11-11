@@ -16,7 +16,7 @@ import {
 import images from "@/assets/images";
 import ProtectedAuth from "@/components/Protected/ProtectedAuth";
 import AuthProtectedModal from "@/components/_common/AuthProtectedModal";
-import { useRouterProtected } from "@/hooks/ProtectedAuth/useRouterProtected";
+import { useRouterProtected } from "@/hooks/Protected/useRouterProtected";
 export default function TabLayout() {
   const router = useRouterProtected();
   return (

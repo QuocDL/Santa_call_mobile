@@ -3,17 +3,17 @@ import GoogleIcon from "@/assets/Icons/Google";
 import LockIcon from "@/assets/Icons/Lock";
 import MailIcon from "@/assets/Icons/Mail";
 import images from "@/assets/images";
-import KeyboardDismissWrapper from "@/components/_element/KeyboarDimiss";
 import CheckBox from "@/components/_element/Checkbox";
+import KeyboardDismissWrapper from "@/components/_element/KeyboarDimiss";
 import ProviderContent from "@/components/Provider/ProviderContent";
 import { RegisterSchema, RegisterType } from "@/constants/validations/Auth";
-import { useAuthRegister } from "@/hooks/mutations/auth/useAuthRegister";
-import { useGetIpAddress } from "@/hooks/query/useGetIpAddress";
+import { useAuthRegister } from "@/hooks/auth/mutations/useAuthRegister";
+import { useGetIpAddress } from "@/hooks/useGetIpAddress";
 import { useAppDispatch } from "@/redux/store";
 import { screenStyle } from "@/styles/ScreenWidth";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { deviceName, modelName } from "expo-device";
+import { modelName } from "expo-device";
 import { Link, useRouter } from "expo-router";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -24,16 +24,16 @@ import {
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  View
+  View,
 } from "react-native";
 import { Shadow } from "react-native-shadow-2";
 
 export default function Register() {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const { data: IpDevice } = useGetIpAddress()
+  const { data: IpDevice } = useGetIpAddress();
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [acpTerm, setAcpTerm] = useState(false);
   const onchangeTermService = () => {
     setAcpTerm(!acpTerm);
@@ -48,19 +48,19 @@ export default function Register() {
       userName: "",
       email: "",
       password: "",
-      confirmPassword: ""
+      confirmPassword: "",
     },
   });
   const inputRefs = React.useRef<{
     userName: TextInput | null;
     email: TextInput | null;
     password: TextInput | null;
-    confirmPassword: TextInput | null
+    confirmPassword: TextInput | null;
   }>({
     userName: null,
     email: null,
     password: null,
-    confirmPassword: null
+    confirmPassword: null,
   });
   const focusNextField = (forcus: keyof typeof inputRefs.current) => {
     const nextField = inputRefs.current[forcus];
@@ -74,17 +74,19 @@ export default function Register() {
       handleSubmit(onSubmit);
     }
   };
-  const { mutate, isPending } = useAuthRegister()
+  const { mutate, isPending } = useAuthRegister();
   const onSubmit = (data: RegisterType) => {
-    Keyboard.dismiss()
-    const formData = new FormData()
-    formData.append('user_name', data.userName)
-    formData.append('password', data.password)
-    formData.append('email', data.email)
-    formData.append('link_avatar', 'demo')
-    modelName ? formData.append('device_register', modelName.replace(/ /g, "_")) : null
-    IpDevice ? formData.append('ip_register', IpDevice) : null
-    mutate(formData)
+    Keyboard.dismiss();
+    const formData = new FormData();
+    formData.append("user_name", data.userName);
+    formData.append("password", data.password);
+    formData.append("email", data.email);
+    formData.append("link_avatar", "demo");
+    modelName
+      ? formData.append("device_register", modelName.replace(/ /g, "_"))
+      : null;
+    IpDevice ? formData.append("ip_register", IpDevice) : null;
+    mutate(formData);
   };
   return (
     <ProviderContent
@@ -114,9 +116,7 @@ export default function Register() {
                         onChangeText={onChange}
                         value={value}
                         returnKeyType="next"
-                        onSubmitEditing={() =>
-                          focusNextField("email")
-                        }
+                        onSubmitEditing={() => focusNextField("email")}
                         ref={(ref) => (inputRefs.current.userName = ref)}
                         blurOnSubmit={false}
                         keyboardType="default"
@@ -151,9 +151,7 @@ export default function Register() {
                         onChangeText={onChange}
                         value={value}
                         returnKeyType="next"
-                        onSubmitEditing={() =>
-                          focusNextField("password")
-                        }
+                        onSubmitEditing={() => focusNextField("password")}
                         ref={(ref) => (inputRefs.current.email = ref)}
                         blurOnSubmit={false}
                         keyboardType="email-address"
@@ -235,7 +233,9 @@ export default function Register() {
                       ref={(ref) => (inputRefs.current.confirmPassword = ref)}
                     />
                     <TouchableWithoutFeedback
-                      onPress={() => setShowConfirmPassword(!showConfirmPassword)}
+                      onPress={() =>
+                        setShowConfirmPassword(!showConfirmPassword)
+                      }
                     >
                       {showConfirmPassword ? (
                         <FontAwesome name="eye-slash" size={24} color="black" />
@@ -258,9 +258,10 @@ export default function Register() {
             <View className="options_sign_in flex flex-row justify-between w-full my-2 px-1">
               <View className="flex flex-row items-end">
                 <CheckBox onChange={onchangeTermService} checked={acpTerm} />
-                <Text className="text-white ml-2">Accept terms and services</Text>
+                <Text className="text-white ml-2">
+                  Accept terms and services
+                </Text>
               </View>
-
             </View>
             <View className="sign_in_btn">
               <Shadow
@@ -278,20 +279,19 @@ export default function Register() {
                   activeOpacity={0.6}
                   className={`h-[40px] w-full flex flex-row items-center justify-center rounded-md bg-[#FF0200]`}
                   onPress={handleSubmit(onSubmit)}
-
                 >
-                  {isPending ? <ActivityIndicator color={'white'} size={'small'} /> : <Text
-                    className={`font-bold text-white text-lg`}
-                  >
-                    Sign up
-                  </Text>}
+                  {isPending ? (
+                    <ActivityIndicator color={"white"} size={"small"} />
+                  ) : (
+                    <Text className={`font-bold text-white text-lg`}>
+                      Sign up
+                    </Text>
+                  )}
                 </TouchableOpacity>
               </Shadow>
             </View>
             <View className="navigate_sign_up flex flex-row items-center mt-4 justify-center">
-              <Text className=" text-lg text-center">
-                You have an account?
-              </Text>
+              <Text className=" text-lg text-center">You have an account?</Text>
               <Link
                 href={"/auth/login"}
                 className="text-lg font-medium text-white ml-2"

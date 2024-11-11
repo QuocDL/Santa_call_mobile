@@ -1,5 +1,5 @@
 import PlayVideo from "@/assets/Icons/PlayVideo";
-import { useRouterProtected } from "@/hooks/ProtectedAuth/useRouterProtected";
+import { useRouterProtected } from "@/hooks/Protected/useRouterProtected";
 import { cardStyle } from "@/styles/CardStyle";
 import { AVPlaybackSource, ResizeMode, Video } from "expo-av";
 import { Href, LinkProps } from "expo-router";
