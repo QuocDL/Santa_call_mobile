@@ -106,7 +106,7 @@ const SwapVideoCard = ({
             typeof videoSrouce === "string" ? { uri: videoSrouce } : videoSrouce as ImageSourcePropType
           }
           usePoster={true}
-          isMuted={true}
+          isMuted={false}
           shouldPlay={false}
           isLooping={true}
           onError={() => setLoadingSource(false)}

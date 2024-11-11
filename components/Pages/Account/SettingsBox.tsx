@@ -32,18 +32,6 @@ export default function SettingsBox() {
               <MaterialIcons name="navigate-next" size={32} color="black" />
             </View>
           </ChangePasswordModal>
-          <Link href={"/(tabs)"} className="w-full mt-2">
-            <View className="flex  justify-between w-full flex-row items-center">
-              <Text className="text-[#00403E] text-sm">In-app purchases</Text>
-              <MaterialIcons name="navigate-next" size={32} color="black" />
-            </View>
-          </Link>
-          <Link href={"/(tabs)"} className="w-full mt-2">
-            <View className="flex  justify-between w-full flex-row items-center">
-              <Text className="text-[#00403E] text-sm">Payment method</Text>
-              <MaterialIcons name="navigate-next" size={32} color="black" />
-            </View>
-          </Link>
         </View>
       </View>
     </>
