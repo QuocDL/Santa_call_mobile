@@ -5,7 +5,7 @@ import { IProfileResponse } from "@/interfaces/User/User";
 import { logout } from "@/redux/slice/authSlice";
 import { useAppDispatch } from "@/redux/store";
 import { screenStyle } from "@/styles/ScreenWidth";
-import { Feather, FontAwesome, Foundation } from "@expo/vector-icons";
+import { Feather, FontAwesome, Foundation, MaterialIcons } from "@expo/vector-icons";
 import { Link, useRouter } from "expo-router";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Shadow } from "react-native-shadow-2";
@@ -94,20 +94,13 @@ export default function ShowProfileBox({ user }: { user: IProfileResponse }) {
           </View>
           <View className="flex flex-row items-center">
             <View className="w-6 ">
-              <FontAwesome name="birthday-cake" size={22} color="#FF0200" />
+            <MaterialIcons name="devices" size={22} color="#FF0200" />
             </View>
             <Text className="font-medium text-base text-[#FF0200] ml-2">
-              02/03/1999
+              {user?.device_register.replace('_', ' ').replace('-', ' ') || 'Unknown'}
             </Text>
           </View>
-          <View className="flex flex-row items-center">
-            <View className="w-6">
-              <FontAwesome name="phone" size={24} color="#FF0200" />
-            </View>
-            <Text className="font-medium text-base text-[#FF0200] ml-2">
-              0324567891
-            </Text>
-          </View>
+         
         </View>
         {/* Log out button */}
         <View className="flex justify-center flex-row mt-6 mb-4">

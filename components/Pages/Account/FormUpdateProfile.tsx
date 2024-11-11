@@ -25,8 +25,6 @@ export default function FormUpdateProfile({user}: {user: IProfileResponse}) {
       defaultValues: {
          username: "",
          email: "",
-         birthday: "",
-         phone: "",
       },
    });
    const [editableFields, setEditableFields] = useState<EditableFields>({
@@ -159,92 +157,11 @@ export default function FormUpdateProfile({user}: {user: IProfileResponse}) {
                      );
                   }}
                />
-               <Controller
-                  control={control}
-                  name="birthday"
-                  rules={{ required: true }}
-                  render={({ field: { onChange, onBlur, value } }) => {
-                     return (
-                        <View className="border-[1px] border-black mt-2 pb-2 py-1 pl-4 rounded-md flex flex-col relative">
-                           <Text className="text-lg text-[#777777]">Birthday</Text>
-                           <TextInput
-                              ref={inputRefs.birthday}
-                              placeholder="Username"
-                              className="h-6  text-base text-black font-bold overflow-hidden"
-                              placeholderTextColor="#777777"
-                              onBlur={onBlur}
-                              onChangeText={onChange}
-                              editable={editableFields.birthday}
-                              value={value}
-                              returnKeyType="done"
-                           />
-                           <TouchableOpacity
-                              className="mb-2 absolute -bottom-1 right-1"
-                              onPress={() =>
-                                 editableFields.birthday
-                                    ? handleCheckPress("birthday")
-                                    : handleEditPress("birthday")
-                              }
-                           >
-                              {editableFields.birthday ? (
-                                 <FontAwesome
-                                    name="check-square-o"
-                                    size={24}
-                                    color="black"
-                                 />
-                              ) : (
-                                 <FontAwesome name="edit" size={24} color="black" />
-                              )}
-                           </TouchableOpacity>
-                        </View>
-                     );
-                  }}
-               />
-               <Controller
-                  control={control}
-                  name="phone"
-                  rules={{ required: true }}
-                  render={({ field: { onChange, onBlur, value } }) => {
-                     return (
-                        <View className="border-[1px] border-black mt-2 pb-2 py-1 pl-4 rounded-md flex flex-col relative">
-                           <Text className="text-lg text-[#777777]">Number</Text>
-                           <TextInput
-                              ref={inputRefs.phone}
-                              placeholder="Username"
-                              className="h-6  text-base text-black font-bold overflow-hidden"
-                              placeholderTextColor="#777777"
-                              onBlur={onBlur}
-                              onChangeText={onChange}
-                              editable={editableFields.phone}
-                              value={value}
-                              returnKeyType="done"
-                           />
-                           <TouchableOpacity
-                              className="mb-2 absolute -bottom-1 right-1"
-                              onPress={() =>
-                                 editableFields.phone
-                                    ? handleCheckPress("phone")
-                                    : handleEditPress("phone")
-                              }
-                           >
-                              {editableFields.phone ? (
-                                 <FontAwesome
-                                    name="check-square-o"
-                                    size={24}
-                                    color="black"
-                                 />
-                              ) : (
-                                 <FontAwesome name="edit" size={24} color="black" />
-                              )}
-                           </TouchableOpacity>
-                        </View>
-                     );
-                  }}
-               />
+              
 
             </View>
             {/* Log out button */}
-            <View className="flex justify-end gap-x-2 flex-row mt-8 mb-4">
+            <View className="flex justify-end gap-x-2 flex-row mt-4 mb-4">
                <TouchableOpacity
                   activeOpacity={0.7}
                   onPress={handleCancelEdit}
