@@ -1,17 +1,23 @@
 import { apiFunface } from "@/api/axiosConfig"
+import { IProfileResponse, IResponseLogin } from "@/interfaces/User/User"
+import { AxiosResponse } from "axios"
 
 const AuthServices = {
    async Login(body: FormData) {
-      return await apiFunface.post('/login', body)
+      const data = await apiFunface.post<FormData, AxiosResponse<IResponseLogin>>('/login', body)
+      return data.data
    },
    async Register(body: FormData) {
-      return await apiFunface.post('/register/user', body)
+      const data = await apiFunface.post('/register/user', body)
+      return data.data
    },
-   async ChangePassword (body: FormData, id_user: string){
-      return await apiFunface.post(`/changepassword/${id_user}`, body)
+   async ChangePassword (body: FormData, id_user: number){
+      const data = await apiFunface.post<FormData, AxiosResponse<IResponseLogin>>(`/changepassword/${id_user}`, body)
+      return data.data
    },
-   async getProfile(id:string){
-      return await apiFunface.get(`/profile/${id}`)
+   async getProfile(id:number){
+      const data = await apiFunface.get<IProfileResponse>(`/profile/${id}`)
+      return data.data
    }
 }
 

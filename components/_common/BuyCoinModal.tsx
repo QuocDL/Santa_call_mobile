@@ -15,6 +15,8 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import images from "@/assets/images";
 import { useAppDispatch, useTypedSelector } from "@/redux/store";
 import { setModalOpen } from "@/redux/slice/authSlice";
+import { useBuyCoin } from "@/hooks/coins/mutations/useBuyCoin";
+import { useToastController } from "@/hooks/useToastController";
 
 const demoCard = [
   {
@@ -49,15 +51,37 @@ export default function BuyCoinModal({
     image: string;
     number: string;
   } | null>(null);
-  const isAuth = useTypedSelector(state => state.auth.authenticate)
-  const dispatch = useAppDispatch()
-  const handleOpenModal = ()=>{
-    if(isAuth){
-      setModalVisible(true)
-    }else{
-      dispatch(setModalOpen())
+  const isAuth = useTypedSelector((state) => state.auth.authenticate);
+  const dispatch = useAppDispatch();
+  const [payOption, setPayOption] = useState<boolean>(false);
+  const handleOpenModal = () => {
+    if (isAuth) {
+      setModalVisible(true);
+    } else {
+      dispatch(setModalOpen());
     }
-  }
+  };
+  const { ToastController } = useToastController();
+  const demoHandleBuyCoin = () => {
+    // mutate(undefined, {
+    //   onSuccess: ()=>{
+    //     ToastController({
+    //       text: "Purchase Successfull!",
+    //       type: 'success',
+    //       duration: 3000,
+    //       placement: 'top'
+    //     })
+    //     setModalVisible(false)
+    //   }
+    // })
+    ToastController({
+      text: "Demo version not pay",
+      type: "warning",
+      duration: 3000,
+      placement: "top",
+    });
+    setModalVisible(false)
+  };
   return (
     <>
       <Modal
@@ -94,16 +118,22 @@ export default function BuyCoinModal({
                   <Text className="font-bold text-xl text-[#CF3736]">= $3</Text>
                 </View>
                 <View className="flex justify-center flex-row mt-4">
-                  <TouchableHighlight
-                    className="bg-[#CF3736] py-1.5 px-10 rounded-md"
-                    underlayColor="#CF3736"
-                    activeOpacity={0.6}
-                    onPress={() => console.log("Payment button pressed")}
+                  <TouchableOpacity
+                    className="bg-[#CF3736] relative px-6 rounded-md mt-2"
+                    activeOpacity={0.8}
+                    onPress={() => setPayOption(!payOption)}
                   >
-                    <Text className="text-white font-medium text-2xl">
-                      Payment $3
-                    </Text>
-                  </TouchableHighlight>
+                    <View className="flex flex-row gap-2 py-2 items-center">
+                      <Text className="text-white font-medium text-2xl">
+                        Payment $3
+                      </Text>
+                      <View
+                        className={`w-5 h-5 ${
+                          payOption ? "bg-green-500" : "bg-white"
+                        } border-2 border-white rounded-full`}
+                      ></View>
+                    </View>
+                  </TouchableOpacity>
                 </View>
                 <Text className="mt-4 text-sm">
                   *Attention: Each photo or video swap will be -1 coin
@@ -158,8 +188,11 @@ export default function BuyCoinModal({
                     <Text className="text-white">Cancel</Text>
                   </Pressable>
                   <Pressable
-                    className="bg-[#00C016] min-w-[65px] py-2.5 rounded-md flex justify-center items-center px-2"
-                    onPress={() => setModalVisible(false)}
+                    disabled={!payOption}
+                    className={`${
+                      payOption ? "bg-[#00C016]" : "bg-green-400"
+                    } min-w-[65px] py-2.5 rounded-md flex justify-center items-center px-2`}
+                    onPress={demoHandleBuyCoin}
                   >
                     <Text className="text-white">Ok</Text>
                   </Pressable>
@@ -169,10 +202,7 @@ export default function BuyCoinModal({
           </View>
         </View>
       </Modal>
-      <TouchableOpacity
-        onPress={handleOpenModal}
-        activeOpacity={0.6}
-      >
+      <TouchableOpacity onPress={handleOpenModal} activeOpacity={0.6}>
         {children}
       </TouchableOpacity>
     </>

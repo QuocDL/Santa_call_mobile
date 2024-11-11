@@ -22,7 +22,7 @@ const SwapImageCard = ({
   size = "large",
   resizeMode = "cover",
 }: {
-  href: Href<LinkProps<string>>; 
+  href: Href<LinkProps<string>>;
   image?: string | ImageSourcePropType;
   title?: string;
   description?: string;
@@ -31,7 +31,7 @@ const SwapImageCard = ({
 }) => {
   const router = useRouterProtected();
   const [loadingImg, setLoadingImg] = useState<boolean>();
-  
+
   return (
     <TouchableOpacity
       activeOpacity={0.9}
@@ -42,7 +42,7 @@ const SwapImageCard = ({
     >
       {loadingImg && (
         <View
-          className="w-full h-full"
+          className="w-full h-full "
           style={{
             justifyContent: "center",
             alignItems: "center",
@@ -52,6 +52,7 @@ const SwapImageCard = ({
         </View>
       )}
       <Image
+        className="w-full h-full"
         source={
           image
             ? typeof image === "string"
@@ -60,18 +61,23 @@ const SwapImageCard = ({
             : images.featuredImage
         }
         resizeMode={resizeMode}
-        onLoadStart={() => setLoadingImg(true)}
+        onLoad={()=> setLoadingImg(true)}
+        onLoadStart={() => setLoadingImg(false)}
         onLoadEnd={() => setLoadingImg(false)}
       />
       <View
-        className={`absolute bottom-0 w-full ${size === 'large' ? '' : 'pt-4'} pb-1 px-1`}
+        className={`absolute bottom-0 w-full ${
+          size === "large" ? "" : "pt-4"
+        } pb-1 px-1`}
         style={cardStyle.background}
       >
         <View>
           <Text
             numberOfLines={1}
             ellipsizeMode="tail"
-            className={`font-bold text-white ${size === 'large' ?'mb-2' :'text-xs' } w-[60%]`}
+            className={`font-bold text-white ${
+              size === "large" ? "mb-2" : "text-xs"
+            } w-[60%]`}
           >
             {title || "Name photo"}
           </Text>
@@ -79,7 +85,14 @@ const SwapImageCard = ({
             {description || "Swap day: 12/10/2024"}
           </Text>
         </View>
-        <TouchableOpacity onPress={()=> (loadingImg ? null : router.navigate(href as LinkType))} className={`absolute ${size === 'large' ? 'right-1 top-3' : 'right-1 top-0.5'}  bg-[#C90019] py-1 px-3 rounded-md`}>
+        <TouchableOpacity
+          onPress={() =>
+            loadingImg ? null : router.navigate(href as LinkType)
+          }
+          className={`absolute ${
+            size === "large" ? "right-1 top-3" : "right-1 top-0.5"
+          }  bg-[#C90019] py-1 px-3 rounded-md`}
+        >
           <Text className="text-white">Use</Text>
         </TouchableOpacity>
       </View>

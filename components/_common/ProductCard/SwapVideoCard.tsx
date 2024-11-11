@@ -3,7 +3,7 @@ import { useRouterProtected } from "@/hooks/Protected/useRouterProtected";
 import { cardStyle } from "@/styles/CardStyle";
 import { AVPlaybackSource, ResizeMode, Video } from "expo-av";
 import { Href, LinkProps } from "expo-router";
-import React, { useRef, useState } from "react";
+import React, { memo, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Image,
@@ -14,6 +14,7 @@ import {
   View,
 } from "react-native";
 import { VideoFullscreenUpdate } from "expo-av";
+
 type IProps = {
   imageSource?: string | ImageSourcePropType;
   videoSrouce?: string | AVPlaybackSource;
@@ -56,6 +57,14 @@ const SwapVideoCard = ({
     }
   };
 
+  const handleVideoLoadStart = () => {
+    setLoadingSource(true);
+  };
+
+  const handleVideoLoadEnd = () => {
+    setLoadingSource(false);
+  };
+
   return (
     <TouchableOpacity
       activeOpacity={0.9}
@@ -82,8 +91,8 @@ const SwapVideoCard = ({
             typeof imageSource === "string" ? { uri: imageSource } : imageSource
           }
           resizeMode={resizeMode}
-          onLoadStart={() => setLoadingSource(true)}
-          onLoadEnd={() => setLoadingSource(false)}
+          onLoadStart={handleVideoLoadStart}
+          onLoadEnd={handleVideoLoadEnd}
         />
       ) : (
         <Video
@@ -93,12 +102,16 @@ const SwapVideoCard = ({
           source={
             typeof videoSrouce === "string" ? { uri: videoSrouce } : videoSrouce
           }
+          posterSource={
+            typeof videoSrouce === "string" ? { uri: videoSrouce } : videoSrouce as ImageSourcePropType
+          }
+          usePoster={true}
           isMuted={true}
           shouldPlay={false}
           isLooping={true}
           onError={() => setLoadingSource(false)}
-          onLoadStart={() => setLoadingSource(true)}
-          onReadyForDisplay={() => setLoadingSource(false)}
+          onLoadStart={handleVideoLoadStart}
+          onReadyForDisplay={handleVideoLoadEnd}
           onFullscreenUpdate={handleFullscreenUpdate}
         />
       )}
@@ -131,7 +144,7 @@ const SwapVideoCard = ({
       {!loadingSource && (
         <TouchableOpacity
           onPress={handlePlayPress}
-          className="absolute top-[50%] -translate-y-5 right-[50%] translate-x-5"
+          className="absolute top-[50%] bg-tr -translate-y-5 right-[50%] translate-x-5"
         >
           <PlayVideo />
         </TouchableOpacity>
@@ -140,4 +153,4 @@ const SwapVideoCard = ({
   );
 };
 
-export default SwapVideoCard;
+export default memo(SwapVideoCard);

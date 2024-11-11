@@ -1,7 +1,8 @@
 import CameraIcon from "@/assets/Icons/Camera";
 import images from "@/assets/images";
 import useMediaPhone from "@/hooks/useMediaPhone";
-import { IUser, logout } from "@/redux/slice/authSlice";
+import { IProfileResponse } from "@/interfaces/User/User";
+import { logout } from "@/redux/slice/authSlice";
 import { useAppDispatch } from "@/redux/store";
 import { screenStyle } from "@/styles/ScreenWidth";
 import { Feather, FontAwesome, Foundation } from "@expo/vector-icons";
@@ -9,7 +10,7 @@ import { Link, useRouter } from "expo-router";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Shadow } from "react-native-shadow-2";
 
-export default function ShowProfileBox({ user }: { user: IUser }) {
+export default function ShowProfileBox({ user }: { user: IProfileResponse }) {
   const { imageUri, showImagePickerOptions } = useMediaPhone();
   const dispatch = useAppDispatch();
   const router = useRouter();

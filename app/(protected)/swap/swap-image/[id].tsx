@@ -86,7 +86,7 @@ export default function SwapImage() {
           renderItem={() => (
             <SwapVideoCard
               href={"/(tabs)/TemplateVideo"}
-              videoSrouce={Videos.trailerWelcome}
+              videoSrouce={'https://media.istockphoto.com/id/1142425750/vi/video/ch%C3%A2n-dung-c%C3%B4-g%C3%A1i-tu%E1%BB%95i-teen.mp4?s=mp4-640x640-is&k=20&c=OuwTVVv2Pp4jo9da6x0NlpoPfEpQfGSMI96TvLA6Dfw='}
             />
           )}
          

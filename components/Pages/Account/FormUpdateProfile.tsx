@@ -1,4 +1,4 @@
-import { IUser } from '@/redux/slice/authSlice';
+import { IProfileResponse } from '@/interfaces/User/User';
 import { FontAwesome } from '@expo/vector-icons';
 import React, { useEffect, useRef, useState } from 'react';
 import { Control, Controller, useForm } from 'react-hook-form';
@@ -15,7 +15,7 @@ const demoData = {
    birthday: "02/03/1999",
    phone: "0324567891",
 }
-export default function FormUpdateProfile({user}: {user: IUser}) {
+export default function FormUpdateProfile({user}: {user: IProfileResponse}) {
    const {
       control,
       handleSubmit,

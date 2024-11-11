@@ -86,7 +86,7 @@ export default function ChangePasswordModal({
     mutate(
       {
         body: formdata,
-        id_user: user ? user.id_user : "0",
+        id_user: user ? user.id_user :  0,
       },
       {
         onSuccess: () => {

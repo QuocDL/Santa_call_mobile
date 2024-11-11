@@ -15,7 +15,6 @@ export default function Account() {
   const user = useTypedSelector((state) => state.auth.user);
   const { data, isLoading } = useGetProfile(user?.id_user);
   const [fadeAnim] = useState(new Animated.Value(0)); 
-
   useEffect(() => {
     if (!isLoading) {
       Animated.timing(fadeAnim, {
@@ -36,13 +35,13 @@ export default function Account() {
     >
       <KeyboardDismissWrapper style={{ flex: 1 }}>
         <TabBarMenu enableSearch={false} />
-        {!isLoading && (
+        {!isLoading && data && (
           <Animated.View style={{ flex: 1, opacity: fadeAnim }}>
             <View className="px-[4%] mt-6">
               {/* box information user */}
-              <ShowProfileBox user={data?.data} />
+              <ShowProfileBox user={data} />
               {/* Form Update Profile */}
-              <FormUpdateProfile user={data?.data} />
+              <FormUpdateProfile user={data} />
               {/* Setting box */}
               <SettingsBox />
               <StatisticalBox />

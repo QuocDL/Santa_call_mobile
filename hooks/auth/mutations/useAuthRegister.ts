@@ -12,10 +12,10 @@ export const useAuthRegister = ()=>{
          return AuthServices.Register(FormData)
       },
       onSuccess: (data)=>{
-         if(data.data.message === 'Account already exists!'){
+         if(data.message === 'Account already exists!'){
             ToastController({
                type: 'warning',
-               text: data.data.message,
+               text: data.message,
                duration: 3000,
                placement: 'top'
             })

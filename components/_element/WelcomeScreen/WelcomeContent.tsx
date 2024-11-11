@@ -2,9 +2,7 @@ import NextIcon from "@/assets/Icons/NextIcon";
 import PrevIcon from "@/assets/Icons/PrevIcon";
 import images from "@/assets/images";
 import { Videos } from "@/assets/Videos";
-import AntDesign from "@expo/vector-icons/AntDesign";
 import { ResizeMode, Video } from "expo-av";
-import { Link } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
@@ -12,10 +10,10 @@ import {
   FlatList,
   Image,
   Text,
-  TouchableHighlight,
   TouchableOpacity,
   View,
 } from "react-native";
+import PaymentContent from "./PaymentContent";
 
 const flatList = [
   {
@@ -27,20 +25,7 @@ const flatList = [
     child: images.welcome.childSecondImage,
   },
 ];
-const itemCoin = [
-  {
-    image: images.checkGreen,
-    title: "No ads",
-  },
-  {
-    image: images.checkGreen,
-    title: "No mask",
-  },
-  {
-    image: images.checkGreen,
-    title: "Only 1 coin",
-  },
-];
+
 export default function WelcomeContent({
   indexContent,
 }: {
@@ -53,7 +38,6 @@ export default function WelcomeContent({
   const opacity = useRef(new Animated.Value(0)).current;
   const handleLoad = () => {
     setLoading(false);
-    // Khởi động animation opacity
     Animated.timing(opacity, {
       toValue: 1,
       duration: 500,
@@ -135,7 +119,7 @@ export default function WelcomeContent({
             viewabilityConfig={viewabilityConfig}
             className="pl-2"
             renderItem={({ item }) => (
-              <Image className="h-[370px]" source={item.image} />
+              <Image className="h-[40vh]" source={item.image} />
             )}
           />
 
@@ -201,7 +185,7 @@ export default function WelcomeContent({
       {indexContent === 1 && (
         <>
           <View className="flex flex-col items-center gap-3">
-            <View className="flex justify-center h-[370px] flex-row">
+            <View className="flex justify-center h-[320px] flex-row">
               {loading && (
                 <ActivityIndicator
                   size="large"
@@ -216,7 +200,7 @@ export default function WelcomeContent({
                   shouldPlay
                   isLooping
                   resizeMode={ResizeMode.COVER}
-                  style={{ height: 370, width: 354 }}
+                  style={{ height: 320, width: 354 }}
                   onLoad={handleLoad}
                   onError={() => setLoading(false)}
                   onLoadStart={() => setLoading(true)}
@@ -233,45 +217,7 @@ export default function WelcomeContent({
         </>
       )}
       {indexContent === 2 && (
-        <>
-          <View className="bg-white absolute top-0 left-4 p-2 rounded-full">
-            <Link href={'/(tabs)'}>
-              <AntDesign className="" name="close" size={24} color="#00403E" />
-            </Link>
-          </View>
-          <View className="flex flex-col items-center justify-end mt-[30vh]">
-            <Text className="text-4xl text-center mr-4 font-bold text-white">
-              100{" "}
-              <Image
-                source={images.coinImage}
-                className="h-[24px] w-[24px] -translate-y-1"
-              />{" "}
-              = $3
-            </Text>
-            <View className=" flex flex-col items-center  ">
-              <View>
-                {itemCoin.map((item, index) => (
-                  <View key={index} className="flex flex-row gap-2 mt-4">
-                    <Image source={item.image} />
-                    <Text className="text-xl font-bold text-white">
-                      {item.title}
-                    </Text>
-                  </View>
-                ))}
-              </View>
-            </View>
-            <TouchableHighlight
-              className="bg-[#CF3736] py-1.5 px-10 rounded-md mt-14"
-              underlayColor="#CF3736"
-              activeOpacity={0.6}
-              onPress={() => console.log("Payment button pressed")}
-            >
-              <Text className="text-white font-medium text-2xl">
-                Payment $3
-              </Text>
-            </TouchableHighlight>
-          </View>
-        </>
+        <PaymentContent/>
       )}
     </>
   );

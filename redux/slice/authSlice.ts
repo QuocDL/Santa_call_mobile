@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export type IUser = {
     email: string;
     user_name: string;
-    id_user: string;
+    id_user: number;
     ip_register: string;
     link_avatar: string;
     device_register: string;

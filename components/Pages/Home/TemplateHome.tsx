@@ -36,7 +36,9 @@ const TemplateHomeComponent = () => {
         <View className="mt-2">
           <CategoryCard
             cardType="image"
-            image={images.featuredImage}
+            image={
+              "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/b0cfbcda-9b0e-465b-a1a1-63e2e7fb8614/dfxswli-99cbc544-2a93-4f19-891c-e3d7407a6e11.png/v1/fill/w_894,h_894,q_70,strp/ai_girl_or_real_photo__by_ameliaai_dfxswli-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTI4MCIsInBhdGgiOiJcL2ZcL2IwY2ZiY2RhLTliMGUtNDY1Yi1hMWExLTYzZTJlN2ZiODYxNFwvZGZ4c3dsaS05OWNiYzU0NC0yYTkzLTRmMTktODkxYy1lM2Q3NDA3YTZlMTEucG5nIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.hYt8-xtMALM5PbaXX8Gkv6sztx6jXFINd2SnJ3gPy4Q"
+            }
             href={"/(tabs)/TemplateVideo"}
             title="Happy new year photos"
           />
@@ -55,7 +57,7 @@ const TemplateHomeComponent = () => {
         <View className="mt-2">
           <CategoryCard
             cardType="video"
-            video={Videos.trailerWelcome}
+            video={'https://media.istockphoto.com/id/1272110108/vi/video/nh%C3%B3m-b%E1%BA%A1n-nh%E1%BA%A3y-ch%C3%A2u-%C3%A1-th%C6%B0%E1%BB%9Fng-th%E1%BB%A9c-b%E1%BB%AFa-ti%E1%BB%87c-%C4%91%C3%AAm.mp4?s=mp4-640x640-is&k=20&c=y7V3SoOU9xIp47ZB9kVFQNe_yz0SP1TyHGj_21k7wVg='}
             href={"/(tabs)/TemplateImage"}
             title="Happy new year videos"
           />
@@ -87,6 +89,9 @@ const TemplateHomeComponent = () => {
             <SwapImageCard
               size="medium"
               href={"/(protected)/swap/swap-image/2" as LinkType}
+              image={
+                "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/b0cfbcda-9b0e-465b-a1a1-63e2e7fb8614/dfxswli-99cbc544-2a93-4f19-891c-e3d7407a6e11.png/v1/fill/w_894,h_894,q_70,strp/ai_girl_or_real_photo__by_ameliaai_dfxswli-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTI4MCIsInBhdGgiOiJcL2ZcL2IwY2ZiY2RhLTliMGUtNDY1Yi1hMWExLTYzZTJlN2ZiODYxNFwvZGZ4c3dsaS05OWNiYzU0NC0yYTkzLTRmMTktODkxYy1lM2Q3NDA3YTZlMTEucG5nIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.hYt8-xtMALM5PbaXX8Gkv6sztx6jXFINd2SnJ3gPy4Q"
+              }
             />
           )}
           ListFooterComponent={() => (
@@ -119,7 +124,9 @@ const TemplateHomeComponent = () => {
           renderItem={() => (
             <SwapVideoCard
               href={"/(protected)/swap/swap-video/2" as LinkType}
-              videoSrouce={Videos.trailerWelcome}
+              videoSrouce={
+                "https://media.istockphoto.com/id/1272110108/vi/video/nh%C3%B3m-b%E1%BA%A1n-nh%E1%BA%A3y-ch%C3%A2u-%C3%A1-th%C6%B0%E1%BB%9Fng-th%E1%BB%A9c-b%E1%BB%AFa-ti%E1%BB%87c-%C4%91%C3%AAm.mp4?s=mp4-640x640-is&k=20&c=y7V3SoOU9xIp47ZB9kVFQNe_yz0SP1TyHGj_21k7wVg="
+              }
             />
           )}
           ListFooterComponent={() => (

@@ -5,7 +5,7 @@ export const useChangePassword = ()=>{
     const queryClient = useQueryClient()
     return useMutation({
         mutationKey: ['change_password'],
-        mutationFn: ({body, id_user}: {body: FormData, id_user: string})=>{
+        mutationFn: ({body, id_user}: {body: FormData, id_user: number})=>{
             return AuthServices.ChangePassword(body, id_user)
         }
     })
