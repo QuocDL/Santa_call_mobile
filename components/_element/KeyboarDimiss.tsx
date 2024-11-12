@@ -1,11 +1,8 @@
 import React from "react";
-import { Platform } from "react-native";
 import {
   Keyboard,
-  KeyboardAvoidingView,
   TouchableWithoutFeedback,
-  View,
-  ViewProps,
+  ViewProps
 } from "react-native";
 
 interface KeyboardDismissWrapperProps extends ViewProps {

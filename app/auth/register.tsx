@@ -92,10 +92,10 @@ export default function Register() {
     <ProviderContent
       backgroundImage={images.bgImage}
       classNameScroll="min-h-screen "
-      viewScroll={"none"}
+      viewScroll={"flatlist"}
+      showScrollBarY={false}
     >
       <KeyboardDismissWrapper style={{ flex: 1 }}>
-        <View>
           <View className={`mt-24 px-[4%] h-screen`}>
             <View className="form_data">
               <Controller
@@ -320,7 +320,6 @@ export default function Register() {
               </TouchableOpacity>
             </View>
           </View>
-        </View>
       </KeyboardDismissWrapper>
     </ProviderContent>
   );

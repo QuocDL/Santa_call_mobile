@@ -68,12 +68,12 @@ export default function Login() {
   return (
     <ProviderContent
       backgroundImage={images.bgImage}
-      viewScroll={"none"}
-      classNameScroll="h-screen"
+      viewScroll={"flatlist"}
+      showScrollBarY={false}
+      classNameScroll="min-h-screen"
     >
-      <KeyboardDismissWrapper style={{ flex: 1 }}>
-        <View>
-          <View className={`mt-24 px-[4%] h-screen`}>
+      <KeyboardDismissWrapper>
+          <View className={`mt-24 px-[4%] `}>
             <View className="form_data">
               <Controller
                 control={control}
@@ -233,7 +233,6 @@ export default function Login() {
               </TouchableOpacity>
             </View>
           </View>
-        </View>
       </KeyboardDismissWrapper>
     </ProviderContent>
   );
