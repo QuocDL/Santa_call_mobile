@@ -1,11 +1,17 @@
 import CameraIcon from "@/assets/Icons/Camera";
 import images from "@/assets/images";
+import { useRouterProtected } from "@/hooks/Protected/useRouterProtected";
 import useMediaPhone from "@/hooks/useMediaPhone";
 import { IProfileResponse } from "@/interfaces/User/User";
 import { logout } from "@/redux/slice/authSlice";
 import { useAppDispatch } from "@/redux/store";
 import { screenStyle } from "@/styles/ScreenWidth";
-import { Feather, FontAwesome, Foundation, MaterialIcons } from "@expo/vector-icons";
+import {
+  Feather,
+  FontAwesome,
+  Foundation,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import { Link, useRouter } from "expo-router";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Shadow } from "react-native-shadow-2";
@@ -13,7 +19,7 @@ import { Shadow } from "react-native-shadow-2";
 export default function ShowProfileBox({ user }: { user: IProfileResponse }) {
   const { imageUri, showImagePickerOptions } = useMediaPhone();
   const dispatch = useAppDispatch();
-  const router = useRouter();
+  const router = useRouterProtected();
   const handleLogOut = () => {
     dispatch(logout());
     router.navigate("/(tabs)");
@@ -37,7 +43,7 @@ export default function ShowProfileBox({ user }: { user: IProfileResponse }) {
             {imageUri ? (
               <Image
                 className="rounded-full w-full h-full overflow-hidden"
-                source={{uri: imageUri}}
+                source={{ uri: imageUri }}
               />
             ) : (
               <Image
@@ -51,26 +57,13 @@ export default function ShowProfileBox({ user }: { user: IProfileResponse }) {
           </View>
         </TouchableOpacity>
         {/* Product block */}
-        <Shadow
-          distance={8}
-          startColor={"rgba(0, 0, 0, 0.10)"}
-          offset={[0, 2]}
-          containerStyle={{
-            borderRadius: 15,
-            width: "auto",
-          }}
-          style={screenStyle.full}
+
+        <TouchableOpacity
+          onPress={() => router.navigate("/(protected)/products")}
+          className="rounded-sm font-bold bg-white  px-4 mr-2 py-1.5 "
         >
-          <View className="rounded-md overflow-hidden">
-            <Link
-              suppressHighlighting={false}
-              href={"/(tabs)"}
-              className="text-[#CF3736] text-lg font-bold bg-white  px-2 py-1.5 "
-            >
-              Products
-            </Link>
-          </View>
-        </Shadow>
+          <Text className="font-semibold text-lg text-[#CF3736]">Products</Text>
+        </TouchableOpacity>
       </View>
       {/* Infomation user */}
       <View className="bg-white px-4 py-2">
@@ -94,13 +87,13 @@ export default function ShowProfileBox({ user }: { user: IProfileResponse }) {
           </View>
           <View className="flex flex-row items-center">
             <View className="w-6 ">
-            <MaterialIcons name="devices" size={22} color="#FF0200" />
+              <MaterialIcons name="devices" size={22} color="#FF0200" />
             </View>
             <Text className="font-medium text-base text-[#FF0200] ml-2">
-              {user?.device_register.replace('_', ' ').replace('-', ' ') || 'Unknown'}
+              {user?.device_register.replace("_", " ").replace("-", " ") ||
+                "Unknown"}
             </Text>
           </View>
-         
         </View>
         {/* Log out button */}
         <View className="flex justify-center flex-row mt-6 mb-4">

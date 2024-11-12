@@ -47,7 +47,7 @@ export default function RootLayout() {
             zIndex: 9999, 
           }}
         >
-          <Stack
+          <Stack initialRouteName="(protected)/products"
             screenOptions={{
               animation: Platform.OS === "android" ? "ios" : "fade",
               animationDuration: Platform.OS === "android" ? 600 : 400,
