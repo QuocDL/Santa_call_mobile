@@ -4,6 +4,7 @@ import { View } from "react-native";
 import Notification from '@/assets/Icons/Notification'
 export default () => {
   const router = useRouter();
+  console.log('test')
   return (
     <Stack>
       <Stack.Screen
