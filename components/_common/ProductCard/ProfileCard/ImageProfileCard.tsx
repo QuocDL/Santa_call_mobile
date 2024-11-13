@@ -1,7 +1,6 @@
 import images from "@/assets/images";
 import { useRouterProtected } from "@/hooks/Protected/useRouterProtected";
 import { LinkType } from "@/interfaces/Helper";
-import { cardStyle } from "@/styles/CardStyle";
 import { Entypo, Feather, FontAwesome5 } from "@expo/vector-icons";
 import { Href, LinkProps } from "expo-router";
 import React, { memo, useState } from "react";
@@ -21,14 +20,14 @@ const ImageProfile = ({
   image,
   date,
   albumName,
-  size = "large",
+  size = "bigger",
   resizeMode = "cover",
 }: {
   href: Href<LinkProps<string>>;
   image?: string | ImageSourcePropType;
   date?: string;
   albumName?: string;
-  size?: "medium" | "large";
+  size?: "medium" | "bigger";
   resizeMode?: ImageResizeMode;
 }) => {
   const router = useRouterProtected();
@@ -70,7 +69,7 @@ const ImageProfile = ({
       />
       <View
         className={`absolute bottom-0 bg-white/60 w-full ${
-          size === "large" ? "" : "pt-4"
+          size === "bigger" ? "" : "pt-4"
         } pb-1 px-1`}
       >
         <View>
@@ -78,7 +77,7 @@ const ImageProfile = ({
             numberOfLines={1}
             ellipsizeMode="tail"
             className={`font-bold text-black ${
-              size === "large" ? "mb-1" : "text-xs"
+              size === "bigger" ? "mb-1" : "text-xs"
             } w-[60%]`}
           >
             {date || "12/10/2024"}

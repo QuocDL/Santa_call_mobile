@@ -7,6 +7,7 @@
     "icon": "./assets/images/santaAvt.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
     "splash": {
       "image": "./assets/images/splashSanta.png",
       "resizeMode": "cover",

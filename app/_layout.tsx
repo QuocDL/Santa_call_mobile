@@ -4,6 +4,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { Platform } from "react-native";
 import "react-native-reanimated";
+import "@/styles/_global.css";
 import ProviderRedux from "@/components/Provider/ProviderRedux";
 import { ToastProvider } from "react-native-toast-notifications";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -47,9 +48,9 @@ export default function RootLayout() {
             zIndex: 9999, 
           }}
         >
-          <Stack initialRouteName="(protected)/products"
+          <Stack 
             screenOptions={{
-              animation: Platform.OS === "android" ? "ios" : "fade",
+              // animation: Platform.OS === "android" ? "ios" : "fade",
               animationDuration: Platform.OS === "android" ? 600 : 400,
             }}
           >
