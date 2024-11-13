@@ -1,6 +1,5 @@
 import PlayVideo from "@/assets/Icons/PlayVideo";
 import { useRouterProtected } from "@/hooks/Protected/useRouterProtected";
-import { cardStyle } from "@/styles/CardStyle";
 import { AVPlaybackSource, ResizeMode, Video } from "expo-av";
 import { Href, LinkProps } from "expo-router";
 import React, { memo, useRef, useState } from "react";
@@ -117,8 +116,7 @@ const SwapVideoCard = ({
       )}
 
       <View
-        style={cardStyle.background}
-        className="absolute bottom-0 w-full px-2 py-1.5"
+        className="absolute bottom-0 bg-black/60 w-full px-2 py-1.5"
       >
         <View>
           <Text

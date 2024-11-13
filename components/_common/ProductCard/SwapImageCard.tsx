@@ -1,7 +1,6 @@
 import images from "@/assets/images";
 import { useRouterProtected } from "@/hooks/Protected/useRouterProtected";
 import { LinkType } from "@/interfaces/Helper";
-import { cardStyle } from "@/styles/CardStyle";
 import { Href, LinkProps } from "expo-router";
 import React, { useState, memo } from "react";
 import {
@@ -66,10 +65,9 @@ const SwapImageCard = ({
         onLoadEnd={() => setLoadingImg(false)}
       />
       <View
-        className={`absolute bottom-0 w-full ${
+        className={`absolute bg-black/60 bottom-0 w-full ${
           size === "large" ? "" : "pt-4"
         } pb-1 px-1`}
-        style={cardStyle.background}
       >
         <View>
           <Text

@@ -1,7 +1,6 @@
 import PlayVideo from "@/assets/Icons/PlayVideo";
 import images from "@/assets/images";
 import { Videos } from "@/assets/Videos";
-import { cardStyle } from "@/styles/CardStyle";
 import { AVPlaybackSource, ResizeMode, Video } from "expo-av";
 import { Href } from "expo-router";
 import { Link, LinkProps, useRouter } from "expo-router";
@@ -81,8 +80,7 @@ export default function CategoryCard({
         />
       )}
       <View
-        style={cardStyle.background}
-        className="absolute bottom-0 bg-black px-2 py-1.5 bg-opacity-40 w-full"
+        className="absolute bottom-0 bg-black/60 px-2 py-1.5 bg-opacity-40 w-full"
       >
         <Text className="font-bold text-lg text-[#FF001E]">{title}</Text>
         <Text className="font-semibold text-sm text-white">

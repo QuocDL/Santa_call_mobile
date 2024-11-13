@@ -13,9 +13,12 @@ import CategoryCard from "@/components/_common/ProductCard/CategoryCard";
 import { Platform } from "react-native";
 import ModalAlbumImage from "@/components/_common/AlbumModal/ImageAlbumModal";
 import { demoImage } from "@/constants/DemoData";
+import ModalAlbumVideo from "@/components/_common/AlbumModal/VideoAlbumModal";
+import VideoProfileCard from "@/components/_common/ProductCard/ProfileCard/VideoProfileCard";
+import { Videos } from "@/assets/Videos";
 
 export default function index() {
-  const [showingAlbum, setAlbum] = useState<"image" | "video">("image");
+  const [showingAlbum, setAlbum] = useState<"image" | "video">("video");
   return (
     <ProviderContent
       enablePullToRefresh
@@ -89,8 +92,6 @@ export default function index() {
                 <ModalAlbumImage id={index + 1}>
                   <ImageProfileCard
                     image={item}
-                    date="Name template"
-                    albumName="Download: 230"
                     href={"/(protected)/products" as LinkType}
                   />
                 </ModalAlbumImage>
@@ -104,19 +105,17 @@ export default function index() {
         )}
         {showingAlbum === "video" && (
           <View className="px-[1%] mt-2">
-            {Array.from({ length: 3 }).map((_, index) => (
-              <View className="mt-2">
-                <CategoryCard
-                  key={Math.random()}
-                  cardType="video"
-                  title="SwapVideo"
-                  href={"/(protected)/swap/swap-video/2" as LinkType}
-                  video={
-                    "https://media.gettyimages.com/id/2174270448/video/atmosphere-paris-fashion-week-womenswear-spring-summer-2025.mp4?s=mp4-640x640-gi&k=20&c=S2irb3fMgGsVNib02dC7bqmPBYSLSYGGMl6as3UTu2k="
-                  }
-                />
-              </View>
-            ))}
+            <FlatList
+              data={Array.from({ length: 3 })}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item }) => (
+                <ModalAlbumVideo>
+                  <VideoProfileCard 
+                    video={Videos.trailerWelcome}
+                  />
+                </ModalAlbumVideo>
+              )}
+            />
             <Pagination
               totalPage={50}
               onChangePage={() => console.log("Paginate press")}
